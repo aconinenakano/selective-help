@@ -103,100 +103,108 @@ function generateProtocol(child, pastSessions) {
                     'nextButtonText': 'Continue'
                 },
                 
-                "study-video": {
-                    "sampler": "random-parameter-set",
-                    "kind": "choice",
-                    "frameList": [{
-                        "kind": "exp-lookit-video",
-                        "video": {
-                            "source": "STUDY_VIDEO",
-                            "position": "fill",
-                            "loop": false
+                'study-video': {
+                    'sampler': 'random-parameter-set',
+                    'kind': 'choice',
+                    'frameList': [{
+                        'kind': 'exp-lookit-video',
+                        'video': {
+                            'top': 0,
+                            'left': 0,
+                            'width': 100,
+                            'source': 'STUDY_VIDEO',
+                            'loop': false
                         },
-                        "autoProceed": true,
-                        "requireVideoCount": 1,
-                        "doRecording": true,
-                        'baseDir': 'https://raw.githubusercontent.com/aconinenakano/selective-help/main',
-                        "parentTextBlock": {
-                            "text": "<b>FOR PARENTS</b>: \n\nPlease let your children make their own choices! You can replay the prompt or help to control the mouse, but please do not choose for them. \n\nClick NEXT when prompted and/or after your child has responded.",
-                            "fontSize": "x-large",
-                            "css": {
-                                "background-color": "#f8f3bf",
-                                "width": "50vw",
-                                "height": "16vh",
-                                "margin": "auto",
-                                "bottom": "2vh",
-                                "right": "0",
-                                "left": "0",
-                                "position": "fixed",
-                                "padding": "10px 25px",
-                                "text-align": "center",
-                                "display": "table-cell",
-                                "vertical-align": "middle",
-                                "border-radius": "15px"
+                        'backgroundColor': 'black',
+                        'autoProceed': true,
+                        'parentTextBlock': {
+                            'text': '<b>FOR PARENTS</b>: \n\nPlease let your children make their own choices! You can replay the prompt or help to control the mouse, but please do not choose for them. \n\nClick NEXT when prompted and/or after your child has responded.',
+                            'fontSize': 'x-large',
+                            'css': {
+                                'background-color': '#f8f3bf',
+                                'width': '50vw',
+                                'height': '16vh',
+                                'margin': 'auto',
+                                'bottom': '2vh',
+                                'right': '0',
+                                'left': '0',
+                                'position': 'fixed',
+                                'padding': '10px 25px',
+                                'text-align': 'center',
+                                'display': 'table-cell',
+                                'vertical-align': 'middle',
+                                'border-radius': '15px'
                             }
+                        },
+                        'showPreviousButton': false,
+                        'showReplayButton': true,
+                        'doRecording': false,
+                        'baseDir': 'https://raw.githubusercontent.com/aconinenakano/selective-help/main',
+                        'videoTypes': ['mp4'],
+                        'onInit': function(protocol, frame, participant) {
+                            console.log('Selected video:', frame.video.source);
+                        },
+                        'onWillStart': function() {
+                            console.log('Starting video playback:', this.video.source);
+                        },
+                        'onVideoStarted': function(video) {
+                            console.log('Now playing video:', this.video.source);
+                        },
+                        'onVideoCompleted': function() {
+                            console.log('Completed video:', this.video.source);
                         }
                     }],
-                    
-                    "parameterSets": [
-                        { "STUDY_VIDEO": "CB1_1A.mp4" },
-                        { "STUDY_VIDEO": "CB2_1A.mp4" },
-                        { "STUDY_VIDEO": "CB3_1A.mp4" },
-                        { "STUDY_VIDEO": "CB4_1A.mp4" },
-                        { "STUDY_VIDEO": "CB5_1A.mp4" },
-                        { "STUDY_VIDEO": "CB6_1A.mp4" },
-                        { "STUDY_VIDEO": "CB7_1A.mp4" },
-                        { "STUDY_VIDEO": "CB8_1A.mp4" }
+                    'parameterSets': [
+                        { 'STUDY_VIDEO': 'CB1_1A' },
+                        { 'STUDY_VIDEO': 'CB2_1A' },
+                        { 'STUDY_VIDEO': 'CB3_1A' },
+                        { 'STUDY_VIDEO': 'CB4_1A' },
+                        { 'STUDY_VIDEO': 'CB5_1A' },
+                        { 'STUDY_VIDEO': 'CB6_1A' },
+                        { 'STUDY_VIDEO': 'CB7_1A' },
+                        { 'STUDY_VIDEO': 'CB8_1A' }
                     ]
                 },
                 
-                "test-question": {
-                    "kind": "exp-lookit-images-audio",
-                    "images": [
+                'test-question': {
+                    'kind': 'exp-lookit-images-audio',
+                    'images': [
                         {
-                            "id": "background",
-                            "src": "DV_Picture.png",
-                            "position": "fill",
+                            "id": 'background',
+                            "src": 'DV_Picture.png',
+                            "left": 0,
+                            "width": 100,
+                            "top": 0,
+                            "height": 100,
+                            'maximizeDisplay': true,
                             "nonChoiceOption": true
                         },
                         {
-                            "id": "left-choice",
-                            "src": "answer_rect_blank.png",
-                            "left": 10,
-                            "width": 40,
-                            "top": 50,
-                            "position": "left"
+                            "id": 'left-choice',
+                            "src": 'answer_rect_blank.png',
+                            "left": 11.5,
+                            "width": 30,
+                            "top": 33,
+                            "right": 11.5,
+                            "height": 60
                         },
                         {
-                            "id": "right-choice",
-                            "src": "answer_rect_blank.png",
-                            "left": 50,
-                            "width": 40,
-                            "top": 50,
-                            "position": "right"
+                            "id": 'right-choice',
+                            "src": 'answer_rect_blank.png',
+                            "left": 68,
+                            "width": 30,
+                            "top": 33,
+                            "right": 67.5,
+                            "height": 60
                         }
                     ],
-                    "choiceRequired": true,
+                    'choiceRequired': true,
+                    'backgroundColor': 'black',
+                    'pageColor': 'black',
                     'baseDir': 'https://raw.githubusercontent.com/aconinenakano/selective-help/main',
-                    "parentTextBlock": {
-                        "text": "<b>FOR PARENTS</b>: \n\nPlease let your children make their own choices! You can replay the prompt or help to control the mouse, but please do not choose for them. \n\nClick NEXT when prompted and/or after your child has responded.",
-                        "fontSize": "x-large",
-                        "css": {
-                            "background-color": "#f8f3bf",
-                            "width": "50vw",
-                            "height": "16vh",
-                            "margin": "auto",
-                            "bottom": "2vh",
-                            "right": "0",
-                            "left": "0",
-                            "position": "fixed",
-                            "padding": "10px 25px",
-                            "text-align": "center",
-                            "display": "table-cell",
-                            "vertical-align": "middle",
-                            "border-radius": "15px"
-                        }
-                    }
+                    'parentTextBlock': {
+                        'text': '<b>FOR PARENTS</b>: \n\nPlease let your children make their own choices! You can replay the prompt or help to control the mouse, but please do not choose for them. \n\nClick NEXT after your child has responded.'
+                    },
                 },
                 
                 "exit-survey": {
@@ -237,12 +245,12 @@ function generateProtocol(child, pastSessions) {
             
             sequence: [
                 'welcome',
-                'study-video',
-                'test-question',
                 'video-config',
+                'video-consent',
                 'positioning',
                 'start-recording',
-                'video-consent',
+                'study-video',
+                'test-question',
                 'email-survey',
                 'exit-survey',
                 'stop-recording'
@@ -343,98 +351,112 @@ function generateProtocol(child, pastSessions) {
                     },
                     'nextButtonText': 'Continue'
                 },
-                "study-video": {
-                    "sampler": "random-parameter-set",
-                    "kind": "choice",
-                    "frameList": [{
-                        "kind": "exp-lookit-video",
-                        "video": {
-                            "source": "STUDY_VIDEO",
-                            "position": "fill",
-                            "loop": false
+                
+                
+               'study-video': {
+                    'sampler': 'random-parameter-set',
+                    'kind': 'choice',
+                    'frameList': [{
+                        'kind': 'exp-lookit-video',
+                        'video': {
+                            'top': 0,
+                            'left': 0,
+                            'width': 100,
+                            'source': 'STUDY_VIDEO',
+                            'loop': false
                         },
-                        "autoProceed": true,
-                        "requireVideoCount": 1,
-                        "doRecording": true,
-                        'baseDir': 'https://raw.githubusercontent.com/aconinenakano/selective-help/main',
-                        "parentTextBlock": {
-                            "text": "<b>FOR PARENTS</b>: \n\nPlease let your children make their own choices! You can replay the prompt or help to control the mouse, but please do not choose for them. \n\nClick NEXT when prompted and/or after your child has responded.",
-                            "fontSize": "x-large",
-                            "css": {
-                                "background-color": "#f8f3bf",
-                                "width": "50vw",
-                                "height": "16vh",
-                                "margin": "auto",
-                                "bottom": "2vh",
-                                "right": "0",
-                                "left": "0",
-                                "position": "fixed",
-                                "padding": "10px 25px",
-                                "text-align": "center",
-                                "display": "table-cell",
-                                "vertical-align": "middle",
-                                "border-radius": "15px"
+                        'backgroundColor': 'black',
+                        'autoProceed': true,
+                        'parentTextBlock': {
+                            'text': '<b>FOR PARENTS</b>: \n\nPlease let your children make their own choices! You can replay the prompt or help to control the mouse, but please do not choose for them. \n\nClick NEXT when prompted and/or after your child has responded.',
+                            'fontSize': 'x-large',
+                            'css': {
+                                'background-color': '#f8f3bf',
+                                'width': '50vw',
+                                'height': '16vh',
+                                'margin': 'auto',
+                                'bottom': '2vh',
+                                'right': '0',
+                                'left': '0',
+                                'position': 'fixed',
+                                'padding': '10px 25px',
+                                'text-align': 'center',
+                                'display': 'table-cell',
+                                'vertical-align': 'middle',
+                                'border-radius': '15px'
                             }
+                        },
+                        'showPreviousButton': false,
+                        'showReplayButton': true,
+                        'doRecording': false,
+                        'baseDir': 'https://raw.githubusercontent.com/aconinenakano/selective-help/main',
+                        'videoTypes': ['mp4'],
+                        'onInit': function(protocol, frame, participant) {
+                            console.log('Selected video:', frame.video.source);
+                        },
+                        'onWillStart': function() {
+                            console.log('Starting video playback:', this.video.source);
+                        },
+                        'onVideoStarted': function(video) {
+                            console.log('Now playing video:', this.video.source);
+                        },
+                        'onVideoCompleted': function() {
+                            console.log('Completed video:', this.video.source);
                         }
                     }],
-                    "parameterSets": [
-                        { "STUDY_VIDEO": "CB1_1B.mp4" },
-                        { "STUDY_VIDEO": "CB2_1B.mp4" },
-                        { "STUDY_VIDEO": "CB3_1B.mp4" },
-                        { "STUDY_VIDEO": "CB4_1B.mp4" },
-                        { "STUDY_VIDEO": "CB5_1B.mp4" },
-                        { "STUDY_VIDEO": "CB6_1B.mp4" },
-                        { "STUDY_VIDEO": "CB7_1B.mp4" },
-                        { "STUDY_VIDEO": "CB8_1B.mp4" }
+                    'parameterSets': [
+                        { 'STUDY_VIDEO': 'CB1_1B' },
+                        { 'STUDY_VIDEO': 'CB2_1B' },
+                        { 'STUDY_VIDEO': 'CB3_1B' },
+                        { 'STUDY_VIDEO': 'CB4_1B' },
+                        { 'STUDY_VIDEO': 'CB5_1B' },
+                        { 'STUDY_VIDEO': 'CB6_1B' },
+                        { 'STUDY_VIDEO': 'CB7_1B' },
+                        { 'STUDY_VIDEO': 'CB8_1B' }
                     ]
                 },
-                "test-question": {
-                    "kind": "exp-lookit-images-audio",
-                    "images": [
+                
+                
+                
+                'test-question': {
+                    'kind': 'exp-lookit-images-audio',
+                    'images': [
                         {
-                            "id": "background",
-                            "src": "DV_Picture.png",
-                            "position": "fill",
+                            "id": 'background',
+                            "src": 'DV_Picture.png',
+                            "left": 0,
+                            "width": 100,
+                            "top": 0,
+                            "height": 100,
+                            'maximizeDisplay': true,
                             "nonChoiceOption": true
                         },
                         {
-                            "id": "left-choice",
-                            "src": "answer_rect_blank.png",
-                            "left": 10,
-                            "width": 40,
-                            "top": 50,
-                            "position": "left"
+                            "id": 'left-choice',
+                            "src": 'answer_rect_blank.png',
+                            "left": 11.5,
+                            "width": 30,
+                            "top": 33,
+                            "right": 11.5,
+                            "height": 60
                         },
                         {
-                            "id": "right-choice",
-                            "src": "answer_rect_blank.png",
-                            "left": 50,
-                            "width": 40,
-                            "top": 50,
-                            "position": "right"
+                            "id": 'right-choice',
+                            "src": 'answer_rect_blank.png',
+                            "left": 68,
+                            "width": 30,
+                            "top": 33,
+                            "right": 67.5,
+                            "height": 60
                         }
                     ],
-                    "choiceRequired": true,
+                    'choiceRequired': true,
+                    'backgroundColor': 'black',
+                    'pageColor': 'black',
                     'baseDir': 'https://raw.githubusercontent.com/aconinenakano/selective-help/main',
-                    "parentTextBlock": {
-                        "text": "<b>FOR PARENTS</b>: \n\nPlease let your children make their own choices! You can replay the prompt or help to control the mouse, but please do not choose for them. \n\nClick NEXT when prompted and/or after your child has responded.",
-                        "fontSize": "x-large",
-                        "css": {
-                            "background-color": "#f8f3bf",
-                            "width": "50vw",
-                            "height": "16vh",
-                            "margin": "auto",
-                            "bottom": "2vh",
-                            "right": "0",
-                            "left": "0",
-                            "position": "fixed",
-                            "padding": "10px 25px",
-                            "text-align": "center",
-                            "display": "table-cell",
-                            "vertical-align": "middle",
-                            "border-radius": "15px"
-                        }
-                    }
+                    'parentTextBlock': {
+                        'text': '<b>FOR PARENTS</b>: \n\nPlease let your children make their own choices! You can replay the prompt or help to control the mouse, but please do not choose for them. \n\nClick NEXT after your child has responded.'
+                    },
                 },
                 
                 "exit-survey": {
@@ -475,12 +497,12 @@ function generateProtocol(child, pastSessions) {
             
             sequence: [
                 'welcome',
-                'study-video',
-                'test-question',
                 'video-config',
+                'video-consent',
                 'positioning',
                 'start-recording',
-                'video-consent',
+                'study-video',
+                'test-question',
                 'email-survey',
                 'exit-survey',
                 'stop-recording'
