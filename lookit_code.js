@@ -70,6 +70,12 @@ function generateProtocol(child, pastSessions) {
                     'displayFullscreen': true
                 },
                 
+                'stop-recording': {
+                    'kind': 'exp-lookit-stop-recording',
+                    'imageAnimation': 'spin',
+                    'displayFullscreen': true
+                },
+                
                 'video-consent': {
                     "gdpr": false,
                     'kind': 'exp-lookit-video-consent',
@@ -103,6 +109,45 @@ function generateProtocol(child, pastSessions) {
                     'nextButtonText': 'Continue'
                 },
                 
+                
+                'welcome-video': {
+                    'kind': 'exp-lookit-video',
+                    'video': {
+                        'top': 0,
+                        'left': 0,
+                        'width': 100,
+                        'source': 'Welcome_Video',
+                        'loop': false
+                    },
+                    'backgroundColor': 'black',
+                    'autoProceed': true,
+                    'parentTextBlock': {
+                        'text': '<b>FOR PARENTS</b>: \n\nPlease allow your child to watch the welcome video carefully.',
+                        'fontSize': 'x-large',
+                        'css': {
+                            'background-color': '#f8f3bf',
+                            'width': '50vw',
+                            'height': '16vh',
+                            'margin': 'auto',
+                            'bottom': '2vh',
+                            'right': '0',
+                            'left': '0',
+                            'position': 'fixed',
+                            'padding': '10px 25px',
+                            'text-align': 'center',
+                            'display': 'table-cell',
+                            'vertical-align': 'middle',
+                            'border-radius': '15px'
+                        }
+                    },
+                    'showPreviousButton': false,
+                    'showReplayButton': true,
+                    'doRecording': false,
+                    'baseDir': 'https://raw.githubusercontent.com/aconinenakano/selective-help/main',
+                    'videoTypes': ['mp4']
+                },
+                
+                
                 'study-video': {
                     'sampler': 'random-parameter-set',
                     'kind': 'choice',
@@ -118,7 +163,7 @@ function generateProtocol(child, pastSessions) {
                         'backgroundColor': 'black',
                         'autoProceed': true,
                         'parentTextBlock': {
-                            'text': '<b>FOR PARENTS</b>: \n\nPlease let your children make their own choices! You can replay the prompt or help to control the mouse, but please do not choose for them. \n\nClick NEXT when prompted and/or after your child has responded.',
+                            'text': '<b>FOR PARENTS</b>: \n\nPlease allow your child to answer on their own and avoid guiding or influencing their thoughts about the video.',
                             'fontSize': 'x-large',
                             'css': {
                                 'background-color': '#f8f3bf',
@@ -203,8 +248,45 @@ function generateProtocol(child, pastSessions) {
                     'pageColor': 'black',
                     'baseDir': 'https://raw.githubusercontent.com/aconinenakano/selective-help/main',
                     'parentTextBlock': {
-                        'text': '<b>FOR PARENTS</b>: \n\nPlease let your children make their own choices! You can replay the prompt or help to control the mouse, but please do not choose for them. \n\nClick NEXT after your child has responded.'
+                        'text': '<b>FOR PARENTS</b>: \n\nPlease allow your child to answer on their own and avoid guiding or influencing their thoughts about the video.',
                     },
+                },
+                
+                'exit-video': {
+                    'kind': 'exp-lookit-video',
+                    'video': {
+                        'top': 0,
+                        'left': 0,
+                        'width': 100,
+                        'source': 'Exit_Video',
+                        'loop': false
+                    },
+                    'backgroundColor': 'black',
+                    'autoProceed': true,
+                    'parentTextBlock': {
+                        'text': '<b>FOR PARENTS</b>: \n\nThank you for completing the study!',
+                        'fontSize': 'x-large',
+                        'css': {
+                            'background-color': '#f8f3bf',
+                            'width': '50vw',
+                            'height': '16vh',
+                            'margin': 'auto',
+                            'bottom': '2vh',
+                            'right': '0',
+                            'left': '0',
+                            'position': 'fixed',
+                            'padding': '10px 25px',
+                            'text-align': 'center',
+                            'display': 'table-cell',
+                            'vertical-align': 'middle',
+                            'border-radius': '15px'
+                        }
+                    },
+                    'showPreviousButton': false,
+                    'showReplayButton': true,
+                    'doRecording': false,
+                    'baseDir': 'https://raw.githubusercontent.com/aconinenakano/selective-help/main',
+                    'videoTypes': ['mp4']
                 },
                 
                 "exit-survey": {
@@ -214,32 +296,26 @@ function generateProtocol(child, pastSessions) {
                         "blocks": [
                             {
                                 "title": "",
-                                "text": "This research wouldn't be possible without awesome parents like you."
+                                "text": "</b><br>This research wouldn't be possible without awesome families like yours!</b>"
                             },
                             {
                                 "title": "Some Background Information:",
-                                "text": ""
+                                "text": "Children often receive help from the people around them, but we know less about what they learn from these helping behaviors. How do young children use helping interactions to understand others and the tasks they face?\n\nIn this study, your child watched a teacher helping one student with a puzzle. Afterwards, children were asked either how difficult the puzzle was or how skilled the student was at puzzles. If children interpret help as a sign of task difficulty, we expect them to rate the puzzle the teacher helped with as harder. If children interpret help as a sign of a student's ability, we expect them to rate the student who received help as less skilled at puzzles.\n\nThis research will shed light on how children can learn about what tasks to attempt and evaluate others' abilities through observing helping interactions."
                             },
                             {
                                 "title": "Additional Resources:",
-                                "text": "To learn more about this topic, you can check out some of the following works and resources:"
+                                "text": "To learn more about this topic, you can check out some of the following research papers:<br><a href='https://direct.mit.edu/opmi/article/doi/10.1162/opmi_a_00129/120682' target='_blank'>Toddlers Prefer Agents Who Help Those Facing Harder Tasks</a><br><a href='https://pmc.ncbi.nlm.nih.gov/articles/PMC7244365/' target='_blank'>When Helping Hurts: Children Think Groups That Receive Help Are Less Smart</a>"
                             },
                             {
                                 "title": "Compensation:",
-                                "text": "To thank you for your participation, we'll be emailing you a $5 USD Amazon gift card - this should arrive in your inbox within the next week after we confirm your consent video and check that your child is in the age range for this study (If you don't hear from us by then, feel free to reach out!). If you participate again with another child in the age range, you'll receive one gift card per child."
+                                "text": "To thank you for your participation, we'll be emailing you a $5 USD Amazon gift card - this should arrive in your CHS inbox within the next week after we confirm your consent video and check that your child is in the age range for this study (If you don't hear from us by then, feel free to reach out!). If you participate again with another child in the age range, you'll receive one gift card per child."
                             },
                             {
                                 "title": "Questions or Concerns:",
-                                "text": "Please do not hesitate to contact Aneesa Conine-Nakano at aneesacn@stanford.edu"
+                                "text": "Please do not hesitate to contact Aneesa Conine-Nakano at aneesacn@stanford.edu."
                             }
                         ]
                     }
-                },
-                
-                'stop-recording': {
-                    'kind': 'exp-lookit-stop-recording',
-                    'imageAnimation': 'spin',
-                    'displayFullscreen': true
                 }
             },
             
@@ -249,10 +325,12 @@ function generateProtocol(child, pastSessions) {
                 'video-consent',
                 'positioning',
                 'start-recording',
+                'welcome-video',
                 'study-video',
                 'test-question',
-                'email-survey',
+                'exit-video',
                 'exit-survey',
+                'email-survey',
                 'stop-recording'
             ]
         };
@@ -285,10 +363,12 @@ function generateProtocol(child, pastSessions) {
                     ],
                     'showPreviousButton': false
                 },
+                
                 'video-config': {
                     'kind': 'exp-video-config',
                     'troubleshootingIntro': 'If you\'re having any trouble getting your webcam set up, please feel free to call the Social Learning Lab at (650) 498-7832 and we\'d be glad to help you out!'
                 },
+                
                 'positioning': {
                     'kind': 'exp-video-config-quality',
                     'title': 'Positioning',
@@ -315,11 +395,13 @@ function generateProtocol(child, pastSessions) {
                     'requireItemConfirmation': true,
                     'recordingInstructionText': ''
                 },
+                
                 'start-recording': {
                     'kind': 'exp-lookit-start-recording',
                     'imageAnimation': 'spin',
                     'displayFullscreen': true
                 },
+                
                 'video-consent': {
                     "gdpr": false,
                     'kind': 'exp-lookit-video-consent',
@@ -334,6 +416,7 @@ function generateProtocol(child, pastSessions) {
                     'datause': 'The researchers and study staff follow federal and state laws to protect your privacy, so all of your information and research records will be kept confidential. The only exception to these procedures for maintaining confidentiality is that we are required by law to report to the appropriate authorities suspicion of harm to your child or to others. More information on how we keep your videos and data private can be found at lookit.mit.edu/faq.',
                     'research_rights_statement': 'The Institutional Review Board (IRB) of Stanford University has approved this research study. If you have questions regarding your rights as a research subject you may contact the IRB office at 650-723-2480, or by mail at Research Compliance Office, Stanford University, 1705 El Camino Real, Palo Alto, CA 94306.'
                 },
+                
                 'email-survey': {
                     'kind': 'exp-lookit-survey',
                     'formSchema': {
@@ -352,6 +435,43 @@ function generateProtocol(child, pastSessions) {
                     'nextButtonText': 'Continue'
                 },
                 
+                'welcome-video': {
+                    'kind': 'exp-lookit-video',
+                    'video': {
+                        'top': 0,
+                        'left': 0,
+                        'width': 100,
+                        'source': 'Welcome_Video',
+                        'loop': false
+                    },
+                    'backgroundColor': 'black',
+                    'autoProceed': true,
+                    'parentTextBlock': {
+                        'text': '<b>FOR PARENTS</b>: \n\nPlease allow your child to watch the welcome video carefully.',
+                        'fontSize': 'x-large',
+                        'css': {
+                            'background-color': '#f8f3bf',
+                            'width': '50vw',
+                            'height': '16vh',
+                            'margin': 'auto',
+                            'bottom': '2vh',
+                            'right': '0',
+                            'left': '0',
+                            'position': 'fixed',
+                            'padding': '10px 25px',
+                            'text-align': 'center',
+                            'display': 'table-cell',
+                            'vertical-align': 'middle',
+                            'border-radius': '15px'
+                        }
+                    },
+                    'showPreviousButton': false,
+                    'showReplayButton': true,
+                    'doRecording': false,
+                    'baseDir': 'https://raw.githubusercontent.com/aconinenakano/selective-help/main',
+                    'videoTypes': ['mp4']
+                },
+                
                 
                'study-video': {
                     'sampler': 'random-parameter-set',
@@ -368,7 +488,7 @@ function generateProtocol(child, pastSessions) {
                         'backgroundColor': 'black',
                         'autoProceed': true,
                         'parentTextBlock': {
-                            'text': '<b>FOR PARENTS</b>: \n\nPlease let your children make their own choices! You can replay the prompt or help to control the mouse, but please do not choose for them. \n\nClick NEXT when prompted and/or after your child has responded.',
+                            'text': '<b>FOR PARENTS</b>: \n\nPlease allow your child to answer on their own and avoid guiding or influencing their thoughts about the video.',
                             'fontSize': 'x-large',
                             'css': {
                                 'background-color': '#f8f3bf',
@@ -455,9 +575,47 @@ function generateProtocol(child, pastSessions) {
                     'pageColor': 'black',
                     'baseDir': 'https://raw.githubusercontent.com/aconinenakano/selective-help/main',
                     'parentTextBlock': {
-                        'text': '<b>FOR PARENTS</b>: \n\nPlease let your children make their own choices! You can replay the prompt or help to control the mouse, but please do not choose for them. \n\nClick NEXT after your child has responded.'
+                        'text': '<b>FOR PARENTS</b>: \n\nPlease allow your child to answer on their own and avoid guiding or influencing their thoughts about the video.',
                     },
                 },
+                
+                'exit-video': {
+                    'kind': 'exp-lookit-video',
+                    'video': {
+                        'top': 0,
+                        'left': 0,
+                        'width': 100,
+                        'source': 'Exit_Video',
+                        'loop': false
+                    },
+                    'backgroundColor': 'black',
+                    'autoProceed': true,
+                    'parentTextBlock': {
+                        'text': '<b>FOR PARENTS</b>: \n\nThank you for completing the study!',
+                        'fontSize': 'x-large',
+                        'css': {
+                            'background-color': '#f8f3bf',
+                            'width': '50vw',
+                            'height': '16vh',
+                            'margin': 'auto',
+                            'bottom': '2vh',
+                            'right': '0',
+                            'left': '0',
+                            'position': 'fixed',
+                            'padding': '10px 25px',
+                            'text-align': 'center',
+                            'display': 'table-cell',
+                            'vertical-align': 'middle',
+                            'border-radius': '15px'
+                        }
+                    },
+                    'showPreviousButton': false,
+                    'showReplayButton': true,
+                    'doRecording': false,
+                    'baseDir': 'https://raw.githubusercontent.com/aconinenakano/selective-help/main',
+                    'videoTypes': ['mp4']
+                },
+                
                 
                 "exit-survey": {
                     "kind": "exp-lookit-exit-survey",
@@ -466,23 +624,23 @@ function generateProtocol(child, pastSessions) {
                         "blocks": [
                             {
                                 "title": "",
-                                "text": "This research wouldn't be possible without awesome parents like you."
+                                "text": "</b><br>This research wouldn't be possible without awesome families like yours!</b>"
                             },
                             {
                                 "title": "Some Background Information:",
-                                "text": ""
+                                "text": "Children often receive help from the people around them, but we know less about what they learn from these helping behaviors. How do young children use helping interactions to understand others and the tasks they face?\n\nIn this study, your child watched a teacher helping one student with a puzzle. Afterwards, children were asked either how difficult the puzzle was or how skilled the student was at puzzles. If children interpret help as a sign of task difficulty, we expect them to rate the puzzle the teacher helped with as harder. If children interpret help as a sign of a student's ability, we expect them to rate the student who received help as less skilled at puzzles.\n\nThis research will shed light on how children can learn about what tasks to attempt and evaluate others' abilities through observing helping interactions."
                             },
                             {
                                 "title": "Additional Resources:",
-                                "text": "To learn more about this topic, you can check out some of the following works and resources:"
+                                "text": "To learn more about this topic, you can check out some of the following research papers:<br><a href='https://direct.mit.edu/opmi/article/doi/10.1162/opmi_a_00129/120682' target='_blank'>Toddlers Prefer Agents Who Help Those Facing Harder Tasks</a><br><a href='https://pmc.ncbi.nlm.nih.gov/articles/PMC7244365/' target='_blank'>When Helping Hurts: Children Think Groups That Receive Help Are Less Smart</a>"
                             },
                             {
                                 "title": "Compensation:",
-                                "text": "To thank you for your participation, we'll be emailing you a $5 USD Amazon gift card - this should arrive in your inbox within the next week after we confirm your consent video and check that your child is in the age range for this study (If you don't hear from us by then, feel free to reach out!). If you participate again with another child in the age range, you'll receive one gift card per child."
+                                "text": "To thank you for your participation, we'll be emailing you a $5 USD Amazon gift card - this should arrive in your CHS inbox within the next week after we confirm your consent video and check that your child is in the age range for this study (If you don't hear from us by then, feel free to reach out!). If you participate again with another child in the age range, you'll receive one gift card per child."
                             },
                             {
                                 "title": "Questions or Concerns:",
-                                "text": "Please do not hesitate to contact Aneesa Conine-Nakano at aneesacn@stanford.edu"
+                                "text": "Please do not hesitate to contact Aneesa Conine-Nakano at aneesacn@stanford.edu."
                             }
                         ]
                     }
@@ -501,8 +659,10 @@ function generateProtocol(child, pastSessions) {
                 'video-consent',
                 'positioning',
                 'start-recording',
+                'welcome-video',
                 'study-video',
                 'test-question',
+                'exit-video',
                 'email-survey',
                 'exit-survey',
                 'stop-recording'
