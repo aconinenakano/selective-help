@@ -14,7 +14,7 @@ function generateProtocol(child, pastSessions) {
                             'title': 'Welcome!'
                         },
                         {
-                            'text': 'Thank you for your interest in our study, \'Selective Help!'
+                            'text': 'Thank you for your interest in our study, \'Learning from a helping hand!'
                         },
                         {
                             'text': 'Here\'s a quick summary of what\'s about to happen:'
@@ -23,7 +23,7 @@ function generateProtocol(child, pastSessions) {
                             'text': '1. Webcam Setup and Video Consent: First, we\'ll be checking that your webcam is working. Then you and your child will give your consent to participate in this research.'
                         },
                         {
-                            'text': '2. Start the Study: When you click the \'Start the game!\' button, the study will begin! This study will take about 10 minutes in total.'
+                            'text': '2. Start the Study: When you click the \'Start the game!\' button, the study will begin! This study will take about 5 minutes in total.'
                         },
                         {
                             'text': 'Thank you so much for helping us with our science! We hope you and your child have fun.'
@@ -83,7 +83,7 @@ function generateProtocol(child, pastSessions) {
                     'PIName': 'Aneesa Conine-Nakano',
                     'institution': 'Stanford University',
                     'PIContact': 'Aneesa Conine-Nakano (aneesacn@stanford.edu) if you have any questions or inquiries about the study.',
-                    'purpose': '',
+                    'purpose': 'Children often receive help from the people around them, but we know less about what they learn from these helping behaviors. How do young children use helping interactions to understand others and the tasks they face? This research explores how children learn to decide which tasks to try, assess others’ abilities, and recognize who might need help by observing acts of helping.',
                     'risk_statement': 'There are no expected risks if you participate in the study.',
                     'voluntary_participation': 'Participation in this study is entirely optional, and you are free to exit at any time.',
                     'payment': 'There are no costs to participating. There are also no known risks associated with this study beyond those of everyday life. Although this study will not benefit your child directly, it will add to our understanding of how children think in general. If indicated in the study description, you may be compensated for participating in this study; if this is not stated in the study description, then you will not receive any payment for your participation.',
@@ -142,7 +142,7 @@ function generateProtocol(child, pastSessions) {
                     },
                     'showPreviousButton': false,
                     'showReplayButton': true,
-                    'doRecording': false,
+                    'doRecording': true,
                     'baseDir': 'https://raw.githubusercontent.com/aconinenakano/selective-help/main',
                     'videoTypes': ['mp4']
                 },
@@ -183,7 +183,7 @@ function generateProtocol(child, pastSessions) {
                         },
                         'showPreviousButton': false,
                         'showReplayButton': true,
-                        'doRecording': false,
+                        'doRecording': true,
                         'baseDir': 'https://raw.githubusercontent.com/aconinenakano/selective-help/main',
                         'videoTypes': ['mp4'],
                         'onInit': function(protocol, frame, participant) {
@@ -231,7 +231,8 @@ function generateProtocol(child, pastSessions) {
                             "width": 30,
                             "top": 33,
                             "right": 11.5,
-                            "height": 60
+                            "height": 60,
+                            "feedbackAudio": "casey"
                         },
                         {
                             "id": 'right-choice',
@@ -240,12 +241,20 @@ function generateProtocol(child, pastSessions) {
                             "width": 30,
                             "top": 33,
                             "right": 67.5,
-                            "height": 60
+                            "height": 60,
+                            "feedbackAudio": "alex"
                         }
                     ],
+                    'audio': 'click_on_your_answer',
+                    'audioTypes': [
+                        'mp3',
+                        'ogg'
+                    ],
+                    'showReplayButton': true,
                     'choiceRequired': true,
                     'backgroundColor': 'black',
                     'pageColor': 'black',
+                    'doRecording': true,
                     'baseDir': 'https://raw.githubusercontent.com/aconinenakano/selective-help/main',
                     'parentTextBlock': {
                         'text': '<b>FOR PARENTS</b>: \n\nPlease allow your child to answer on their own and avoid guiding or influencing their thoughts about the video.',
@@ -284,7 +293,7 @@ function generateProtocol(child, pastSessions) {
                     },
                     'showPreviousButton': false,
                     'showReplayButton': true,
-                    'doRecording': false,
+                    'doRecording': true,
                     'baseDir': 'https://raw.githubusercontent.com/aconinenakano/selective-help/main',
                     'videoTypes': ['mp4']
                 },
@@ -346,7 +355,7 @@ function generateProtocol(child, pastSessions) {
                             'title': 'Welcome!'
                         },
                         {
-                            'text': 'Thank you for your interest in our study, \'Selective Help!'
+                            'text': 'Thank you for your interest in our study, \'Learning from a helping hand!'
                         },
                         {
                             'text': 'Here\'s a quick summary of what\'s about to happen:'
@@ -355,7 +364,7 @@ function generateProtocol(child, pastSessions) {
                             'text': '1. Webcam Setup and Video Consent: First, we\'ll be checking that your webcam is working. Then you and your child will give your consent to participate in this research.'
                         },
                         {
-                            'text': '2. Start the Study: When you click the \'Start the game!\' button, the study will begin! This study will take about 10 minutes in total.'
+                            'text': '2. Start the Study: When you click the \'Start the game!\' button, the study will begin! This study will take about 5 minutes in total.'
                         },
                         {
                             'text': 'Thank you so much for helping us with our science! We hope you and your child have fun.'
@@ -409,7 +418,7 @@ function generateProtocol(child, pastSessions) {
                     'PIName': 'Aneesa Conine-Nakano',
                     'institution': 'Stanford University',
                     'PIContact': 'Aneesa Conine-Nakano (aneesacn@stanford.edu) if you have any questions or inquiries about the study.',
-                    'purpose': '',
+                    'purpose': 'Children often receive help from the people around them, but we know less about what they learn from these helping behaviors. How do young children use helping interactions to understand others and the tasks they face? This research explores how children learn to decide which tasks to try, assess others’ abilities, and recognize who might need help by observing acts of helping.',
                     'risk_statement': 'There are no expected risks if you participate in the study.',
                     'voluntary_participation': 'Participation in this study is entirely optional, and you are free to exit at any time.',
                     'payment': 'There are no costs to participating. There are also no known risks associated with this study beyond those of everyday life. Although this study will not benefit your child directly, it will add to our understanding of how children think in general. If indicated in the study description, you may be compensated for participating in this study; if this is not stated in the study description, then you will not receive any payment for your participation.',
@@ -467,7 +476,7 @@ function generateProtocol(child, pastSessions) {
                     },
                     'showPreviousButton': false,
                     'showReplayButton': true,
-                    'doRecording': false,
+                    'doRecording': true,
                     'baseDir': 'https://raw.githubusercontent.com/aconinenakano/selective-help/main',
                     'videoTypes': ['mp4']
                 },
@@ -508,7 +517,7 @@ function generateProtocol(child, pastSessions) {
                         },
                         'showPreviousButton': false,
                         'showReplayButton': true,
-                        'doRecording': false,
+                        'doRecording': true,
                         'baseDir': 'https://raw.githubusercontent.com/aconinenakano/selective-help/main',
                         'videoTypes': ['mp4'],
                         'onInit': function(protocol, frame, participant) {
@@ -558,7 +567,8 @@ function generateProtocol(child, pastSessions) {
                             "width": 30,
                             "top": 33,
                             "right": 11.5,
-                            "height": 60
+                            "height": 60,
+                            "feedbackAudio": "casey"
                         },
                         {
                             "id": 'right-choice',
@@ -567,12 +577,20 @@ function generateProtocol(child, pastSessions) {
                             "width": 30,
                             "top": 33,
                             "right": 67.5,
-                            "height": 60
+                            "height": 60,
+                            "feedbackAudio": "alex"
                         }
                     ],
+                    'audio': 'click_on_your_answer',
+                    'audioTypes': [
+                        'mp3',
+                        'ogg'
+                    ],
+                    'showReplayButton': true,
                     'choiceRequired': true,
                     'backgroundColor': 'black',
                     'pageColor': 'black',
+                    'doRecording': true,
                     'baseDir': 'https://raw.githubusercontent.com/aconinenakano/selective-help/main',
                     'parentTextBlock': {
                         'text': '<b>FOR PARENTS</b>: \n\nPlease allow your child to answer on their own and avoid guiding or influencing their thoughts about the video.',
@@ -611,7 +629,7 @@ function generateProtocol(child, pastSessions) {
                     },
                     'showPreviousButton': false,
                     'showReplayButton': true,
-                    'doRecording': false,
+                    'doRecording': true,
                     'baseDir': 'https://raw.githubusercontent.com/aconinenakano/selective-help/main',
                     'videoTypes': ['mp4']
                 },
@@ -661,8 +679,8 @@ function generateProtocol(child, pastSessions) {
                 'start-recording',
                 'welcome-video',
                 'study-video',
-                'test-question',
                 'exit-video',
+                'test-question',
                 'email-survey',
                 'exit-survey',
                 'stop-recording'
