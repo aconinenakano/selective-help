@@ -1,5 +1,5 @@
 function generateProtocol(child, pastSessions) {
-    let options = ['1a', '1b'];
+    let options = ['1b'];
     let condition = options[Math.floor(Math.random() * options.length)];
     console.log('Condition:', condition);
 
