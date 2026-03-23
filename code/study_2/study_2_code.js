@@ -73,7 +73,7 @@ function generateProtocol(child, pastSessions) {
                 'images': [
                     {'id': 'background', 'src': 'SH2_screenerchoice.png', 'left': 0, 'width': 100, 'top': 0, 'height': 100, 'nonChoiceOption': true},
                     {'id': 'left-choice', 'src': 'answer_rect_blank.png', 'left': 10, 'width': 35, 'top': 25, 'height': 50, 'feedbackAudio': 'this_one', 'nonChoiceOption': false},
-                    {'id': 'right-choice', 'src': 'answer_rect_blank.png', 'left': 55, 'width': 35, 'top': 25, 'height': 50, 'feedbackAudio': 'this_one', 'nonChoiceOption': false}
+                    {'id': 'right-choice', 'src': 'answer_rect_blank.png', 'left': 55, 'width': 40, 'top': 25, 'height': 50, 'feedbackAudio': 'this_one', 'nonChoiceOption': false}
                 ],
                 'audio': 'screener_question', 'baseDir': 'https://raw.githubusercontent.com/aconinenakano/selective-help/main', 'audioTypes': ['mp3'],
                 'autoProceed': false, 'choiceRequired': true, 'doRecording': true
@@ -90,7 +90,7 @@ function generateProtocol(child, pastSessions) {
                 'images': [
                     {'id': 'background', 'src': 'SH2_screenerchoice.png', 'left': 0, 'width': 100, 'top': 0, 'height': 100, 'nonChoiceOption': true},
                     {'id': 'left-choice', 'src': 'answer_rect_blank.png', 'left': 10, 'width': 35, 'top': 25, 'height': 50, 'feedbackAudio': 'this_one', 'nonChoiceOption': false},
-                    {'id': 'right-choice', 'src': 'answer_rect_blank.png', 'left': 55, 'width': 35, 'top': 25, 'height': 50, 'feedbackAudio': 'this_one', 'nonChoiceOption': false}
+                    {'id': 'right-choice', 'src': 'answer_rect_blank.png', 'left': 55, 'width': 40, 'top': 25, 'height': 50, 'feedbackAudio': 'this_one', 'nonChoiceOption': false}
                 ],
                 'audio': 'screener_question', 'baseDir': 'https://raw.githubusercontent.com/aconinenakano/selective-help/main', 'audioTypes': ['mp3'],
                 'autoProceed': false, 'choiceRequired': true, 'doRecording': true
@@ -110,7 +110,11 @@ function generateProtocol(child, pastSessions) {
             'dv-choice': {
                 'kind': 'exp-lookit-images-audio',
                 'images': [{'id': 'background', 'src': 'SH2_dvchoice.png', 'left': 0, 'width': 100, 'top': 0, 'height': 100, 'nonChoiceOption': true}, {'id': 'left-choice-zoe', 'src': 'answer_rect_blank.png', 'left': 10, 'width': 35, 'top': 25, 'height': 50, 'feedbackAudio': 'zoe'}, {'id': 'right-choice-mia', 'src': 'answer_rect_blank.png', 'left': 55, 'width': 35, 'top': 25, 'height': 50, 'feedbackAudio': 'mia'}],
-                'audio': 'dv_audio', 'baseDir': 'https://raw.githubusercontent.com/aconinenakano/selective-help/main', 'audioTypes': ['mp3'], 'choiceRequired': true, 'doRecording': true
+                'audio': 'dv_audio', 'baseDir': 'https://raw.githubusercontent.com/aconinenakano/selective-help/main', 'audioTypes': ['mp3'], 'choiceRequired': true, 'doRecording': true,
+                'highlights': [
+                    {'range': [3.52, 3.84], 'imageId': 'left-choice-zoe'},
+                    {'range': [5.02, 5.44], 'imageId': 'right-choice-mia'}
+                ]
             },
             'exit-block': {
                 'kind': 'exp-lookit-video',
