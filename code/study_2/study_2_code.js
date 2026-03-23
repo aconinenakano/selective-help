@@ -1,247 +1,146 @@
 function generateProtocol(child, pastSessions) {
 
-    // Counter for the screener question attempts
-    let screenerAttempts = 0;
-
     return {
         frames: {
-            // --- Standard Setup & Consent Frames ---
             'welcome': {
                 'kind': 'exp-lookit-text',
-                'blocks': [{
-                    'title': 'Welcome to the study!' // <-- TODO: Update study title
-                }, {
-                    'text': 'Thank you for your interest in our study!'
-                }, {
-                    'text': 'Here\'s a quick summary of what\'s about to happen:'
-                }, {
-                    'text': '1. Webcam Setup and Video Consent: First, we\'ll be checking that your webcam is working. Then you and your child will give your consent to participate in this research.'
-                }, {
-                    'text': '2. Start the Study: When you click the \'Start the game!\' button, the study will begin! This study will take about 5 minutes in total.'
-                }, {
-                    'text': 'Thank you so much for helping us with our science! We hope you and your child have fun.'
-                }],
+                'blocks': [{'title': 'Welcome to "Let\'s look at block pyramids!"'}, {'text': 'Thank you for your interest in our study!'}, {'text': 'Here\'s a quick summary of what\'s about to happen:'}, {'text': '1. Webcam Setup and Video Consent: First, we\'ll be checking that your webcam is working. Then you and your child will give your consent to participate in this research.'}, {'text': '2. Start the Study: When you click the \'Start the game!\' button, the study will begin! This study will take about 5 minutes in total.'}, {'text': 'Thank you so much for helping us with our science! We hope you and your child have fun.'}],
                 'showPreviousButton': false
             },
             'video-config': {
-                'kind': 'exp-video-config',
-                'troubleshootingIntro': 'If you\'re having any trouble getting your webcam set up, please feel free to call the Social Learning Lab at (650) 498-7832 and we\'d be glad to help you out!'
+                'kind': 'exp-video-config'
             },
             'video-consent': {
                 'kind': 'exp-lookit-video-consent',
                 'template': 'consent_005',
                 'PIName': 'Aneesa Conine-Nakano',
                 'institution': 'Stanford University',
-                'PIContact': 'Aneesa Conine-Nakano (aneesacn@stanford.edu)',
-                // ... (keeping other consent fields the same as 1a/1b)
+                'PIContact': 'Aneesa Conine-Nakano (aneesacn@stanford.edu) if you have any questions or inquiries about the study.',
+                'purpose': 'Children often receive help from the people around them, but we know less about what they learn from these helping behaviors. How do young children use helping interactions to understand others and the tasks they face? This research explores how children learn to decide which tasks to try, assess others\' abilities, and recognize who might need help by observing acts of helping.',
+                'risk_statement': 'There are no expected risks if you participate in the study.',
+                'voluntary_participation': 'Participation in this study is entirely optional, and you are free to exit at any time.',
+                'payment': 'There are no costs to participating. There are also no known risks associated with this study beyond those of everyday life. Although this study will not benefit your child directly, it will add to our understanding of how children think in general. If indicated in the study description, you may be compensated for participating in this study; if this is not stated in the study description, then you will not receive any payment for your participation.',
+                'datause': 'The researchers and study staff follow federal and state laws to protect your privacy, so all of your information and research records will be kept confidential. The only exception to these procedures for maintaining confidentiality is that we are required by law to report to the appropriate authorities suspicion of harm to your child or to others. More information on how we keep your videos and data private can be found at lookit.mit.edu/faq.',
+                'research_rights_statement': 'The Institutional Review Board (IRB) of Stanford University has approved this research study. If you have questions regarding your rights as a research subject you may contact the IRB office at 650-723-2480, or by mail at Research Compliance Office, Stanford University, 1705 El Camino Real, Palo Alto, CA 94306.'
             },
             'positioning': {
-                'kind': 'exp-video-config-quality'
-                // ... (keeping positioning frame the same as 1a/1b)
+                'kind': 'exp-video-config-quality',
+                'title': 'Positioning',
+                'introText': 'It\'s time to get your child & check yourself out!',
+                'showRecordMenu': false,
+                'requireTestVideo': false,
+                'completedItemText': 'Got it!',
+                'instructionBlocks': [
+                    {
+                        'text': 'You and your child can sit in any position.',
+                        'title': 'Get comfortable'
+                    },
+                    {
+                        'text': 'Go ahead and get settled and use the webcam preview to make sure your child\'s whole face and torso are in view.',
+                        'title': 'Take a few moments'
+                    },
+                    {
+                        'text': 'Press the \'Next\' button down below if you and your child are in position and ready to go.',
+                        'title': 'When you\'re ready'
+                    }
+                ],
+                'nextButtonText': 'My child and I are in position and ready to start!',
+                'showPreviousButton': true,
+                'requireItemConfirmation': true,
+                'recordingInstructionText': ''
             },
             'start-recording': {
-                'kind': 'exp-lookit-start-recording'
+                'kind': 'exp-lookit-start-recording',
+                'imageAnimation': 'spin',
+                'displayFullscreen': true
             },
-
-            // --- Study-Specific Frames from your Outline ---
 
             'welcome-block': {
                 'kind': 'exp-lookit-video',
-                'video': {
-                    'source': 'welcome'
-                },
-                'backgroundColor': 'black',
-                'autoProceed': true,
-                'doRecording': true,
-                'baseDir': 'https://raw.githubusercontent.com/aconinenakano/selective-help/main',
-                'videoTypes': ['mp4']
+                'video': { 'top': 0, 'left': 0, 'width': 100, 'source': 'welcome', 'loop': false },
+                'backgroundColor': 'black', 'autoProceed': true, 'doRecording': true,
+                'baseDir': 'https://raw.githubusercontent.com/aconinenakano/selective-help/main', 'videoTypes': ['mp4']
             },
-
             'intro-block': {
                 'kind': 'exp-lookit-video',
-                'video': {
-                    'source': 'SH_study2_intro'
-                },
-                'backgroundColor': 'black',
-                'autoProceed': true,
-                'doRecording': true,
-                'baseDir': 'https://raw.githubusercontent.com/aconinenakano/selective-help/main',
-                'videoTypes': ['mp4']
-            },
-
-            // --- Screener Sequence with Branching Logic ---
-            'screener-sequence': {
-                'kind': 'choice',
-                'frameList': [
-                    'screener-choice',
-                    'screener-feedback'
-                ],
-                'next': function(frame, expData) {
-                    screenerAttempts++;
-                    // Get the ID of the screener-choice frame within this sequence
-                    const choiceFrameId = this.frameList[0];
-                    const lastChoice = expData[choiceFrameId].selectedChoice;
-
-                    if (lastChoice === 'left-choice') { // Correct answer
-                        return 'main-block';
-                    } else { // Incorrect answer
-                        if (screenerAttempts < 2) {
-                            return this.id; // Repeat this whole sequence
-                        } else {
-                            return 'main-block'; // Incorrect twice, move on anyway
-                        }
-                    }
-                }
+                'video': { 'top': 0, 'left': 0, 'width': 100, 'source': 'SH_study2_intro', 'loop': false },
+                'backgroundColor': 'black', 'autoProceed': true, 'doRecording': true,
+                'baseDir': 'https://raw.githubusercontent.com/aconinenakano/selective-help/main', 'videoTypes': ['mp4']
             },
 
             'screener-choice': {
                 'kind': 'exp-lookit-images-audio',
-                'images': [{
-                    "id": 'background',
-                    "src": 'SH2_screenerchoice.png',
-                    "left": 0, "width": 100, "top": 0, "height": 100,
-                    "nonChoiceOption": true
-                }, {
-                    "id": 'left-choice', // Correct
-                    "src": 'answer_rect_blank.png', // Transparent clickable area
-                    "left": 10, "width": 35, "top": 25, "height": 50,
-                    "feedbackAudio": "this_one"
-                }, {
-                    "id": 'right-choice', // Incorrect
-                    "src": 'answer_rect_blank.png', // Transparent clickable area
-                    "left": 55, "width": 35, "top": 25, "height": 50,
-                    "feedbackAudio": "this_one"
-                }],
-                'audio': 'screener_question',
-                'baseDir': 'https://raw.githubusercontent.com/aconinenakano/selective-help/main',
-                'audioTypes': ['m4a'],
-                'choiceRequired': true,
-                'doRecording': true,
-                'onChoice': function(selectedImages) {
-                    this.data.selectedChoice = selectedImages[0].id;
-                }
+                'images': [
+                    {'id': 'background', 'src': 'SH2_screenerchoice.png', 'left': 0, 'width': 100, 'top': 0, 'height': 100, 'nonChoiceOption': true},
+                    {'id': 'left-choice', 'src': 'answer_rect_blank.png', 'left': 10, 'width': 35, 'top': 25, 'height': 50, 'feedbackAudio': 'this_one', 'nonChoiceOption': false},
+                    {'id': 'right-choice', 'src': 'answer_rect_blank.png', 'left': 55, 'width': 35, 'top': 25, 'height': 50, 'feedbackAudio': 'this_one', 'nonChoiceOption': false}
+                ],
+                'audio': 'screener_question', 'baseDir': 'https://raw.githubusercontent.com/aconinenakano/selective-help/main', 'audioTypes': ['mp3'],
+                'autoProceed': false, 'choiceRequired': true, 'doRecording': true
             },
-
             'screener-feedback': {
                 'kind': 'exp-lookit-video',
-                'backgroundColor': 'black',
-                'autoProceed': true,
-                'doRecording': true,
-                'baseDir': 'https://raw.githubusercontent.com/aconinenakano/selective-help/main',
-                'videoTypes': ['mp4'],
-                'generateProperties': 'function(expData, sequence) { var choiceFrameId = sequence[sequence.length - 1]; var choice = expData[choiceFrameId].selectedChoice; var videoSource = ""; if (choice === "left-choice") { videoSource = "screener_correct"; } else { videoSource = "screener_incorrect"; } return { video: { source: videoSource } }; }'
+                'backgroundColor': 'black', 'autoProceed': true, 'doRecording': true,
+                'baseDir': 'https://raw.githubusercontent.com/aconinenakano/selective-help/main', 'videoTypes': ['mp4'],
+                'generateProperties': 'function(expData, sequence) { var choiceFrameId = sequence[sequence.length - 1]; var frameData = expData[choiceFrameId]; var isCorrect = (frameData && frameData.selectedImage === "left-choice"); var videoSource = isCorrect ? "screener_correct" : "screener_incorrect"; console.log("generateProperties: isCorrect =", isCorrect, "Playing video ->", videoSource); return { video: { "top": 0, "left": 0, "width": 100, "source": videoSource, "loop": false } }; }',
+                'selectNextFrame': 'function(frames, frameIndex, expData) { console.log("--- screener-feedback selectNextFrame ---"); var isCorrect = false; for (var key in expData) { if (key.indexOf("screener-choice") !== -1 && expData[key].selectedImage) { isCorrect = expData[key].selectedImage === "left-choice"; } } console.log("Is correct?", isCorrect); if (isCorrect) { console.log("Correct! Skipping retry -> main-block"); return frameIndex + 2; } console.log("Wrong, continuing to retry."); return frameIndex + 1; }'
             },
-            // --- End of Screener Sequence ---
+            'screener-choice-retry': {
+                'kind': 'exp-lookit-images-audio',
+                'images': [
+                    {'id': 'background', 'src': 'SH2_screenerchoice.png', 'left': 0, 'width': 100, 'top': 0, 'height': 100, 'nonChoiceOption': true},
+                    {'id': 'left-choice', 'src': 'answer_rect_blank.png', 'left': 10, 'width': 35, 'top': 25, 'height': 50, 'feedbackAudio': 'this_one', 'nonChoiceOption': false},
+                    {'id': 'right-choice', 'src': 'answer_rect_blank.png', 'left': 55, 'width': 35, 'top': 25, 'height': 50, 'feedbackAudio': 'this_one', 'nonChoiceOption': false}
+                ],
+                'audio': 'screener_question', 'baseDir': 'https://raw.githubusercontent.com/aconinenakano/selective-help/main', 'audioTypes': ['mp3'],
+                'autoProceed': false, 'choiceRequired': true, 'doRecording': true
+            },
 
             'main-block': {
-                'sampler': 'random-parameter-set',
-                'kind': 'choice',
-                'frameList': [{
-                    'kind': 'exp-lookit-video',
-                    'video': {
-                        'source': 'STUDY_VIDEO'
-                    },
-                    'backgroundColor': 'black',
-                    'autoProceed': true,
-                    'doRecording': true,
-                    'baseDir': 'https://raw.githubusercontent.com/aconinenakano/selective-help/main',
-                    'videoTypes': ['mp4']
-                }],
-                'parameterSets': [
-                    { 'STUDY_VIDEO': 'SH_study2_cb1' },
-                    { 'STUDY_VIDEO': 'SH_study2_cb2' }
-                ]
+                'sampler': 'random-parameter-set', 'kind': 'choice',
+                'frameList': [{'kind': 'exp-lookit-video', 'video': { 'top': 0, 'left': 0, 'width': 100, 'source': 'STUDY_VIDEO', 'loop': false }, 'backgroundColor': 'black', 'autoProceed': true, 'doRecording': true, 'baseDir': 'https://raw.githubusercontent.com/aconinenakano/selective-help/main', 'videoTypes': ['mp4']}],
+                'parameterSets': [ { 'STUDY_VIDEO': 'SH_study2_cb1' }, { 'STUDY_VIDEO': 'SH_study2_cb2' } ]
             },
-
             'dv-block': {
                 'kind': 'exp-lookit-video',
-                'video': {
-                    'source': 'SH_study2_dv'
-                },
-                'backgroundColor': 'black',
-                'autoProceed': true,
-                'doRecording': true,
-                'baseDir': 'https://raw.githubusercontent.com/aconinenakano/selective-help/main',
-                'videoTypes': ['mp4']
+                'video': { 'top': 0, 'left': 0, 'width': 100, 'source': 'SH_study2_dv', 'loop': false },
+                'backgroundColor': 'black', 'autoProceed': true, 'doRecording': true,
+                'baseDir': 'https://raw.githubusercontent.com/aconinenakano/selective-help/main', 'videoTypes': ['mp4']
             },
-
             'dv-choice': {
                 'kind': 'exp-lookit-images-audio',
-                'images': [{
-                    "id": 'background', "src": 'SH2_dvchoice.png', "left": 0, "width": 100, "top": 0, "height": 100, "nonChoiceOption": true
-                }, {
-                    "id": 'left-choice-zoe', "src": 'answer_rect_blank.png', "left": 10, "width": 35, "top": 25, "height": 50, "feedbackAudio": "zoe"
-                }, {
-                    "id": 'right-choice-mia', "src": 'answer_rect_blank.png', "left": 55, "width": 35, "top": 25, "height": 50, "feedbackAudio": "mia"
-                }],
-                'audio': 'dv_audio',
-                'baseDir': 'https://raw.githubusercontent.com/aconinenakano/selective-help/main',
-                'audioTypes': ['mov', 'm4a', 'mp3'],
-                'choiceRequired': true,
-                'doRecording': true
+                'images': [{'id': 'background', 'src': 'SH2_dvchoice.png', 'left': 0, 'width': 100, 'top': 0, 'height': 100, 'nonChoiceOption': true}, {'id': 'left-choice-zoe', 'src': 'answer_rect_blank.png', 'left': 10, 'width': 35, 'top': 25, 'height': 50, 'feedbackAudio': 'zoe'}, {'id': 'right-choice-mia', 'src': 'answer_rect_blank.png', 'left': 55, 'width': 35, 'top': 25, 'height': 50, 'feedbackAudio': 'mia'}],
+                'audio': 'dv_audio', 'baseDir': 'https://raw.githubusercontent.com/aconinenakano/selective-help/main', 'audioTypes': ['mp3'], 'choiceRequired': true, 'doRecording': true
             },
-
             'memory-choice-1': {
                 'kind': 'exp-lookit-images-audio',
-                'images': [{
-                    "id": 'background', "src": 'SH2_mc1.png', "left": 0, "width": 100, "top": 0, "height": 100, "nonChoiceOption": true
-                },
-                // --- TODO: Update coordinates for each clickable student area ---
-                { "id": 'student-1', "src": 'answer_rect_blank.png', "left": 5, "width": 20, "top": 30, "height": 40, "feedbackAudio": "this_student" },
-                { "id": 'student-2', "src": 'answer_rect_blank.png', "left": 30, "width": 20, "top": 30, "height": 40, "feedbackAudio": "this_student" },
-                { "id": 'student-3', "src": 'answer_rect_blank.png', "left": 55, "width": 20, "top": 30, "height": 40, "feedbackAudio": "this_student" }
-                ],
-                'audio': 'mc_1',
-                'baseDir': 'https://raw.githubusercontent.com/aconinenakano/selective-help/main',
-                'audioTypes': ['m4a'],
-                'choiceRequired': false, // Allows checkbox-style selection
-                'doRecording': true
+                'images': [ {'id': 'background', 'src': 'SH2_mc1.png', 'left': 0, 'width': 100, 'top': 0, 'height': 100, 'nonChoiceOption': true }, { 'id': 'student-1', 'src': 'answer_rect_blank.png', 'left': 5, 'width': 20, 'top': 30, 'height': 40, 'feedbackAudio': 'this_student' } ],
+                'audio': 'mc_1', 'baseDir': 'https://raw.githubusercontent.com/aconinenakano/selective-help/main', 'audioTypes': ['mp3'], 'choiceRequired': false, 'doRecording': true
             },
-
             'memory-choice-2': {
                 'kind': 'exp-lookit-images-audio',
-                'images': [{
-                    "id": 'background', "src": 'SH2_mc2.png', "left": 0, "width": 100, "top": 0, "height": 100, "nonChoiceOption": true
-                },
-                // --- TODO: Update coordinates for each clickable student area ---
-                { "id": 'student-a', "src": 'answer_rect_blank.png', "left": 5, "width": 20, "top": 30, "height": 40, "feedbackAudio": "this_student" },
-                { "id": 'student-b', "src": 'answer_rect_blank.png', "left": 30, "width": 20, "top": 30, "height": 40, "feedbackAudio": "this_student" },
-                { "id": 'student-c', "src": 'answer_rect_blank.png', "left": 55, "width": 20, "top": 30, "height": 40, "feedbackAudio": "this_student" }
-                ],
-                'audio': 'mc_2',
-                'baseDir': 'https://raw.githubusercontent.com/aconinenakano/selective-help/main',
-                'audioTypes': ['m4a'],
-                'choiceRequired': false, // Allows checkbox-style selection
-                'doRecording': true
+                'images': [ { 'id': 'background', 'src': 'SH2_mc2.png', 'left': 0, 'width': 100, 'top': 0, 'height': 100, 'nonChoiceOption': true }, { 'id': 'student-a', 'src': 'answer_rect_blank.png', 'left': 5, 'width': 20, 'top': 30, 'height': 40, 'feedbackAudio': 'this_student' } ],
+                'audio': 'mc_2', 'baseDir': 'https://raw.githubusercontent.com/aconinenakano/selective-help/main', 'audioTypes': ['mp3'], 'choiceRequired': false, 'doRecording': true
             },
-
             'exit-block': {
                 'kind': 'exp-lookit-video',
-                'video': {
-                    'source': 'ending'
-                },
-                'backgroundColor': 'black',
-                'autoProceed': true,
-                'doRecording': true,
-                'baseDir': 'https://raw.githubusercontent.com/aconinenakano/selective-help/main',
-                'videoTypes': ['mp4']
+                'video': { 'top': 0, 'left': 0, 'width': 100, 'source': 'ending', 'loop': false },
+                'backgroundColor': 'black', 'autoProceed': true, 'doRecording': true,
+                'baseDir': 'https://raw.githubusercontent.com/aconinenakano/selective-help/main', 'videoTypes': ['mp4']
             },
-
-            // --- Standard Exit & Survey Frames ---
             'email-survey': {
-                'kind': 'exp-lookit-survey',
-                // ... (keeping email survey frame the same as 1a/1b)
+                'kind': 'exp-lookit-survey'
             },
             'exit-survey': {
-                'kind': 'exp-lookit-exit-survey',
-                 // ... (keeping exit survey frame the same as 1a/1b, you may want to update debriefing text)
+                'kind': 'exp-lookit-exit-survey'
             },
             'stop-recording': {
-                'kind': 'exp-lookit-stop-recording'
+                'kind': 'exp-lookit-stop-recording',
+                'imageAnimation': 'spin',
+                'displayFullscreen': true
             }
         },
 
-        // --- The final sequence of frames for the study ---
         'sequence': [
             'welcome',
             'video-config',
@@ -250,7 +149,9 @@ function generateProtocol(child, pastSessions) {
             'start-recording',
             'welcome-block',
             'intro-block',
-            'screener-sequence',
+            'screener-choice',
+            'screener-feedback',
+            'screener-choice-retry',
             'main-block',
             'dv-block',
             'dv-choice',
