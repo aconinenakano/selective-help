@@ -98,29 +98,19 @@ function generateProtocol(child, pastSessions) {
 
             'main-block': {
                 'sampler': 'random-parameter-set', 'kind': 'choice',
-                'frameList': [{'kind': 'exp-lookit-video', 'video': { 'top': 0, 'left': 0, 'width': 100, 'source': 'STUDY_VIDEO', 'loop': false }, 'backgroundColor': 'black', 'autoProceed': true, 'doRecording': true, 'baseDir': 'https://raw.githubusercontent.com/aconinenakano/selective-help/main', 'videoTypes': ['mp4']}],
-                'parameterSets': [ { 'STUDY_VIDEO': 'SH_study2_cb1' }, { 'STUDY_VIDEO': 'SH_study2_cb2' } ]
-            },
-            'dv-block': {
-                'kind': 'exp-lookit-video',
-                'video': { 'top': 0, 'left': 0, 'width': 100, 'source': 'SH_study2_dv', 'loop': false },
-                'backgroundColor': 'black', 'autoProceed': true, 'doRecording': true,
-                'baseDir': 'https://raw.githubusercontent.com/aconinenakano/selective-help/main', 'videoTypes': ['mp4']
+                'frameList': [
+                    {'kind': 'exp-lookit-video', 'video': { 'top': 0, 'left': 0, 'width': 100, 'source': 'STUDY_VIDEO', 'loop': false }, 'backgroundColor': 'black', 'autoProceed': true, 'doRecording': true, 'baseDir': 'https://raw.githubusercontent.com/aconinenakano/selective-help/main', 'videoTypes': ['mp4']},
+                    {'kind': 'exp-lookit-video', 'video': { 'top': 0, 'left': 0, 'width': 100, 'source': 'DV_VIDEO', 'loop': false }, 'backgroundColor': 'black', 'autoProceed': true, 'doRecording': true, 'baseDir': 'https://raw.githubusercontent.com/aconinenakano/selective-help/main', 'videoTypes': ['mp4']}
+                ],
+                'parameterSets': [
+                    { 'STUDY_VIDEO': 'SH_study2_cb1', 'DV_VIDEO': 'SH_study2_dv_cb1' },
+                    { 'STUDY_VIDEO': 'SH_study2_cb2', 'DV_VIDEO': 'SH_study2_dv_cb2' }
+                ]
             },
             'dv-choice': {
                 'kind': 'exp-lookit-images-audio',
                 'images': [{'id': 'background', 'src': 'SH2_dvchoice.png', 'left': 0, 'width': 100, 'top': 0, 'height': 100, 'nonChoiceOption': true}, {'id': 'left-choice-zoe', 'src': 'answer_rect_blank.png', 'left': 10, 'width': 35, 'top': 25, 'height': 50, 'feedbackAudio': 'zoe'}, {'id': 'right-choice-mia', 'src': 'answer_rect_blank.png', 'left': 55, 'width': 35, 'top': 25, 'height': 50, 'feedbackAudio': 'mia'}],
                 'audio': 'dv_audio', 'baseDir': 'https://raw.githubusercontent.com/aconinenakano/selective-help/main', 'audioTypes': ['mp3'], 'choiceRequired': true, 'doRecording': true
-            },
-            'memory-choice-1': {
-                'kind': 'exp-lookit-images-audio',
-                'images': [ {'id': 'background', 'src': 'SH2_mc1.png', 'left': 0, 'width': 100, 'top': 0, 'height': 100, 'nonChoiceOption': true }, { 'id': 'student-1', 'src': 'answer_rect_blank.png', 'left': 5, 'width': 20, 'top': 30, 'height': 40, 'feedbackAudio': 'this_student' } ],
-                'audio': 'mc_1', 'baseDir': 'https://raw.githubusercontent.com/aconinenakano/selective-help/main', 'audioTypes': ['mp3'], 'choiceRequired': false, 'doRecording': true
-            },
-            'memory-choice-2': {
-                'kind': 'exp-lookit-images-audio',
-                'images': [ { 'id': 'background', 'src': 'SH2_mc2.png', 'left': 0, 'width': 100, 'top': 0, 'height': 100, 'nonChoiceOption': true }, { 'id': 'student-a', 'src': 'answer_rect_blank.png', 'left': 5, 'width': 20, 'top': 30, 'height': 40, 'feedbackAudio': 'this_student' } ],
-                'audio': 'mc_2', 'baseDir': 'https://raw.githubusercontent.com/aconinenakano/selective-help/main', 'audioTypes': ['mp3'], 'choiceRequired': false, 'doRecording': true
             },
             'exit-block': {
                 'kind': 'exp-lookit-video',
@@ -153,10 +143,7 @@ function generateProtocol(child, pastSessions) {
             'screener-feedback',
             'screener-choice-retry',
             'main-block',
-            'dv-block',
             'dv-choice',
-            'memory-choice-1',
-            'memory-choice-2',
             'exit-block',
             'email-survey',
             'exit-survey',
