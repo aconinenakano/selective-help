@@ -82,8 +82,8 @@ function generateProtocol(child, pastSessions) {
                 'kind': 'exp-lookit-video',
                 'backgroundColor': 'black', 'autoProceed': true, 'doRecording': true,
                 'baseDir': 'https://raw.githubusercontent.com/aconinenakano/selective-help/main', 'videoTypes': ['mp4'],
-                'generateProperties': 'function(expData, sequence) { var choiceFrameId = sequence[sequence.length - 1]; var frameData = expData[choiceFrameId]; var isCorrect = (frameData && frameData.selectedImage === "left-choice"); var videoSource = isCorrect ? "screener_correct" : "screener_incorrect"; console.log("generateProperties: isCorrect =", isCorrect, "Playing video ->", videoSource); return { video: { "top": 0, "left": 0, "width": 100, "source": videoSource, "loop": false } }; }',
-                'selectNextFrame': 'function(frames, frameIndex, expData) { console.log("--- screener-feedback selectNextFrame ---"); var isCorrect = false; for (var key in expData) { if (key.indexOf("screener-choice") !== -1 && expData[key].selectedImage) { isCorrect = expData[key].selectedImage === "left-choice"; } } console.log("Is correct?", isCorrect); if (isCorrect) { console.log("Correct! Skipping retry -> main-block"); return frameIndex + 2; } console.log("Wrong, continuing to retry."); return frameIndex + 1; }'
+                'generateProperties': 'function(expData, sequence) { var isCorrect = false; for (var key in expData) { if (key.indexOf("screener-choice") !== -1 && key.indexOf("retry") === -1 && expData[key].selectedImage) { isCorrect = expData[key].selectedImage === "left-choice"; } } window._screenerCorrect = isCorrect; var videoSource = isCorrect ? "screener_correct" : "screener_incorrect"; return { video: { "top": 0, "left": 0, "width": 100, "source": videoSource, "loop": false } }; }',
+                'selectNextFrame': 'function(frames, frameIndex, expData) { var isCorrect = window._screenerCorrect || false; return isCorrect ? frameIndex + 2 : frameIndex + 1; }'
             },
             'screener-choice-retry': {
                 'kind': 'exp-lookit-images-audio',
@@ -123,10 +123,49 @@ function generateProtocol(child, pastSessions) {
                 'baseDir': 'https://raw.githubusercontent.com/aconinenakano/selective-help/main', 'videoTypes': ['mp4']
             },
             'email-survey': {
-                'kind': 'exp-lookit-survey'
+                'kind': 'exp-lookit-survey',
+                'formSchema': {
+                    'schema': {
+                        'type': 'object',
+                        'title': 'Please enter your email address below. This will be used for sending you the $5 gift card.',
+                        'properties': {
+                            'Email': {
+                                'type': 'string',
+                                'title': 'Email',
+                                'required': true
+                            }
+                        }
+                    }
+                },
+                'nextButtonText': 'Continue'
             },
             'exit-survey': {
-                'kind': 'exp-lookit-exit-survey'
+                'kind': 'exp-lookit-exit-survey',
+                'debriefing': {
+                    'title': 'Thank you for participating!',
+                    'blocks': [
+                        {
+                            'title': '',
+                            'text': '</b><br>This research wouldn\'t be possible without awesome families like yours!</b>'
+                        },
+                        {
+                            'title': 'Some Background Information:',
+                            'text': 'Children often receive help from the people around them, but we know less about what they learn from these helping behaviors. How do young children use helping interactions to understand others and the tasks they face?\n\nIn this study, your child watched teachers in two classrooms help students with block pyramid building. In one classroom, the teacher helped some students and not others. In the other, the teacher helped everyone. Your child was then asked which student they think really needs help.\n\nThis research will shed light on how children can learn about what tasks to attempt and evaluate others\' abilities through observing helping interactions.'
+                        },
+                        {
+                            'title': 'Additional Resources:',
+                            'text': 'To learn more about this topic, you can check out some of the following research papers:<br><a href=\'https://direct.mit.edu/opmi/article/doi/10.1162/opmi_a_00129/120682\' target=\'_blank\'>Toddlers Prefer Agents Who Help Those Facing Harder Tasks</a><br><a href=\'https://pmc.ncbi.nlm.nih.gov/articles/PMC7244365/\' target=\'_blank\'>When Helping Hurts: Children Think Groups That Receive Help Are Less Smart</a>'
+                        },
+                        {
+                            'title': 'Compensation:',
+                            'text': 'To thank you for your participation, we\'ll be emailing you a $5 USD Amazon gift card - this should arrive in your inbox within the next week after we confirm your consent video and check that your child is in the age range for this study (If you don\'t hear from us by then, feel free to reach out!). If you participate again with another child in the age range, you\'ll receive one gift card per child.'
+                        },
+                        {
+                            'title': 'Questions or Concerns:',
+                            'text': 'Please do not hesitate to contact Aneesa Conine-Nakano at aneesacn@stanford.edu.'
+                        }
+                    ]
+                }
             },
             'stop-recording': {
                 'kind': 'exp-lookit-stop-recording',
