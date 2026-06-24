@@ -1,0 +1,211 @@
+function generateProtocol(child, pastSessions) {
+
+    return {
+        frames: {
+            'welcome': {
+                'kind': 'exp-lookit-text',
+                'blocks': [{'title': 'Welcome to "Let\'s look at block pyramids!"'}, {'text': 'Thank you for your interest in our study!'}, {'text': 'Here\'s a quick summary of what\'s about to happen:'}, {'text': '1. Webcam Setup and Video Consent: First, we\'ll be checking that your webcam is working. Then you and your child will give your consent to participate in this research.'}, {'text': '2. Start the Study: When you click the \'Start the game!\' button, the study will begin! This study will take about 5 minutes in total.'}, {'text': 'Thank you so much for helping us with our science! We hope you and your child have fun.'}],
+                'showPreviousButton': false
+            },
+            'video-config': {
+                'kind': 'exp-video-config'
+            },
+            'video-consent': {
+                'kind': 'exp-lookit-video-consent',
+                'template': 'consent_005',
+                'PIName': 'Aneesa Conine-Nakano',
+                'institution': 'Stanford University',
+                'PIContact': 'Aneesa Conine-Nakano (aneesacn@stanford.edu) if you have any questions or inquiries about the study.',
+                'purpose': 'Children often receive help from the people around them, but we know less about what they learn from these helping behaviors. How do young children use helping interactions to understand others and the tasks they face? This research explores how children learn to decide which tasks to try, assess others\' abilities, and recognize who might need help by observing acts of helping.',
+                'risk_statement': 'There are no expected risks if you participate in the study.',
+                'voluntary_participation': 'Participation in this study is entirely optional, and you are free to exit at any time.',
+                'payment': 'There are no costs to participating. There are also no known risks associated with this study beyond those of everyday life. Although this study will not benefit your child directly, it will add to our understanding of how children think in general. If indicated in the study description, you may be compensated for participating in this study; if this is not stated in the study description, then you will not receive any payment for your participation.',
+                'datause': 'The researchers and study staff follow federal and state laws to protect your privacy, so all of your information and research records will be kept confidential. The only exception to these procedures for maintaining confidentiality is that we are required by law to report to the appropriate authorities suspicion of harm to your child or to others. More information on how we keep your videos and data private can be found at lookit.mit.edu/faq.',
+                'research_rights_statement': 'The Institutional Review Board (IRB) of Stanford University has approved this research study. If you have questions regarding your rights as a research subject you may contact the IRB office at 650-723-2480, or by mail at Research Compliance Office, Stanford University, 1705 El Camino Real, Palo Alto, CA 94306.'
+            },
+      
+            'email-survey': {
+                'kind': 'exp-lookit-survey',
+                'formSchema': {
+                    'schema': {
+                        'type': 'object',
+                        'title': 'Please enter your email address below. This will be used for sending you the $5 gift card.',
+                        'properties': {
+                            'Email': {
+                                'type': 'string',
+                                'title': 'Email',
+                                'required': true
+                            }
+                        }
+                    }
+                },
+                'nextButtonText': 'Continue'
+            },
+            
+            'positioning': {
+                'kind': 'exp-video-config-quality',
+                'title': 'Positioning',
+                'introText': 'It\'s time to get your child & check yourself out!',
+                'showRecordMenu': false,
+                'requireTestVideo': false,
+                'completedItemText': 'Got it!',
+                'instructionBlocks': [
+                    {
+                        'text': 'You and your child can sit in any position.',
+                        'title': 'Get comfortable'
+                    },
+                    {
+                        'text': 'Go ahead and get settled and use the webcam preview to make sure your child\'s whole face and torso are in view.',
+                        'title': 'Take a few moments'
+                    },
+                    {
+                        'text': 'Press the \'Next\' button down below if you and your child are in position and ready to go.',
+                        'title': 'When you\'re ready'
+                    }
+                ],
+                'nextButtonText': 'My child and I are in position and ready to start!',
+                'showPreviousButton': true,
+                'requireItemConfirmation': true,
+                'recordingInstructionText': ''
+            },
+            'start-recording': {
+                'kind': 'exp-lookit-start-recording',
+                'imageAnimation': 'spin',
+                'displayFullscreen': true
+            },
+
+            'welcome-block': {
+                'kind': 'exp-lookit-video',
+                'video': { 'top': 0, 'left': 0, 'width': 100, 'source': 'welcome', 'loop': false },
+                'backgroundColor': 'black', 'autoProceed': true, 'doRecording': true,
+                'baseDir': 'https://raw.githubusercontent.com/aconinenakano/selective-help/main', 'videoTypes': ['mp4']
+            },
+   
+            'intro-block': {
+              'sampler': 'random-parameter-set',
+              'kind': 'choice',
+              'frameList': [
+                {
+                  'kind': 'exp-lookit-video',
+                  'generateProperties': 'function(expData, sequence, child, pastSessions, conditions) { var cb = conditions["intro-block"] || 0; window._screenerCB = cb; var source = cb === 0 ? "SH_study2_intro_cb1" : "SH_study2_intro_cb2"; return { video: { "top": 0, "left": 0, "width": 100, "source": source, "loop": false } }; }',
+                  'backgroundColor': 'black', 'autoProceed': true, 'doRecording': true,
+                  'baseDir': 'https://raw.githubusercontent.com/aconinenakano/selective-help/main', 'videoTypes': ['mp4']
+                }
+           ],
+           'parameterSets': [
+             { 'INTRO_VIDEO': 'SH_study2_intro_cb1' },
+             { 'INTRO_VIDEO': 'SH_study2_intro_cb2' }
+             ]
+            },
+            
+            'screener-choice': {
+              'kind': 'exp-lookit-images-audio',
+              'generateProperties': 'function(expData, sequence, child, pastSessions, conditions) { var cb = window._screenerCB || 0; var image = cb === 0 ? "SH2_screenerchoice_cb1.png" : "SH2_screenerchoice_cb2.png"; return { images: [ {"id": "background", "src": image, "left": 0, "width": 100, "top": 0, "height": 100, "nonChoiceOption": true}, {"id": "left-choice", "src": "answer_rect_blank.png", "left": 10, "width": 35, "top": 25, "height": 50, "feedbackAudio": "this_one", "nonChoiceOption": false}, {"id": "right-choice", "src": "answer_rect_blank.png", "left": 55, "width": 40, "top": 25, "height": 50, "feedbackAudio": "this_one", "nonChoiceOption": false} ] }; }',
+              'audio': 'screener_question',
+              'baseDir': 'https://raw.githubusercontent.com/aconinenakano/selective-help/main',
+              'audioTypes': ['mp3'],
+              'autoProceed': false, 'choiceRequired': true, 'doRecording': true
+              
+            },
+            
+            'screener-feedback': {
+              'kind': 'exp-lookit-video',
+              'backgroundColor': 'black', 'autoProceed': true, 'doRecording': true,
+              'baseDir': 'https://raw.githubusercontent.com/aconinenakano/selective-help/main', 'videoTypes': ['mp4'],
+              'generateProperties': 'function(expData, sequence, child, pastSessions, conditions) { var selectedImage = null; for (var key in expData) { if (key.indexOf("screener-choice") !== -1 && key.indexOf("retry") === -1 && expData[key].selectedImage) { selectedImage = expData[key].selectedImage; } } var cb = window._screenerCB || 0; var isCorrect = (cb === 0) ? selectedImage === "left-choice" : selectedImage === "right-choice"; window._screenerCorrect = isCorrect; var cbSuffix = cb === 0 ? "_cb1" : "_cb2"; var videoSource = isCorrect ? "screener_correct" + cbSuffix : "screener_incorrect" + cbSuffix; return { video: { "top": 0, "left": 0, "width": 100, "source": videoSource, "loop": false } }; }',
+              'selectNextFrame': 'function(frames, frameIndex, expData) { var isCorrect = window._screenerCorrect || false; return isCorrect ? frameIndex + 2 : frameIndex + 1; }'
+              
+            },
+            
+            
+            'screener-choice-retry': {
+              'kind': 'exp-lookit-images-audio',
+              'generateProperties': 'function(expData, sequence, child, pastSessions, conditions) { var cb = window._screenerCB || 0; var image = cb === 0 ? "SH2_screenerchoice_cb1.png" : "SH2_screenerchoice_cb2.png"; return { images: [ {"id": "background", "src": image, "left": 0, "width": 100, "top": 0, "height": 100, "nonChoiceOption": true}, {"id": "left-choice", "src": "answer_rect_blank.png", "left": 10, "width": 35, "top": 25, "height": 50, "feedbackAudio": "this_one", "nonChoiceOption": false}, {"id": "right-choice", "src": "answer_rect_blank.png", "left": 55, "width": 40, "top": 25, "height": 50, "feedbackAudio": "this_one", "nonChoiceOption": false} ] }; }',
+              'audio': 'screener_question',
+              'baseDir': 'https://raw.githubusercontent.com/aconinenakano/selective-help/main',
+              'audioTypes': ['mp3'],
+              'autoProceed': false, 'choiceRequired': true, 'doRecording': true
+              
+            },
+
+            'main-block': {
+                'sampler': 'random-parameter-set', 'kind': 'choice',
+                'frameList': [
+                    {'kind': 'exp-lookit-video', 'video': { 'top': 0, 'left': 0, 'width': 100, 'source': 'STUDY_VIDEO', 'loop': false }, 'backgroundColor': 'black', 'autoProceed': true, 'doRecording': true, 'baseDir': 'https://raw.githubusercontent.com/aconinenakano/selective-help/main', 'videoTypes': ['mp4']},
+                    {'kind': 'exp-lookit-video', 'video': { 'top': 0, 'left': 0, 'width': 100, 'source': 'DV_VIDEO', 'loop': false }, 'backgroundColor': 'black', 'autoProceed': true, 'doRecording': true, 'baseDir': 'https://raw.githubusercontent.com/aconinenakano/selective-help/main', 'videoTypes': ['mp4']}
+                ],
+                'parameterSets': [
+                    { 'STUDY_VIDEO': 'SH_study2_cb1', 'DV_VIDEO': 'SH_study2_dv_cb1' },
+                    { 'STUDY_VIDEO': 'SH_study2_cb2', 'DV_VIDEO': 'SH_study2_dv_cb2' }
+                ]
+            },
+            'dv-choice': {
+                'kind': 'exp-lookit-images-audio',
+                'images': [{'id': 'background', 'src': 'SH2_dvchoice.png', 'left': 0, 'width': 100, 'top': 0, 'height': 100, 'nonChoiceOption': true}, {'id': 'left-choice-zoe', 'src': 'answer_rect_blank.png', 'left': 10, 'width': 35, 'top': 25, 'height': 50, 'feedbackAudio': 'zoe'}, {'id': 'right-choice-mia', 'src': 'answer_rect_blank.png', 'left': 55, 'width': 35, 'top': 25, 'height': 50, 'feedbackAudio': 'mia'}],
+                'audio': 'dv_audio', 'baseDir': 'https://raw.githubusercontent.com/aconinenakano/selective-help/main', 'audioTypes': ['mp3'], 'choiceRequired': true, 'doRecording': true,
+                'highlights': [
+                    {'range': [3.52, 3.84], 'imageId': 'left-choice-zoe'},
+                    {'range': [5.02, 5.44], 'imageId': 'right-choice-mia'}
+                ]
+            },
+            'exit-block': {
+                'kind': 'exp-lookit-video',
+                'video': { 'top': 0, 'left': 0, 'width': 100, 'source': 'ending', 'loop': false },
+                'backgroundColor': 'black', 'autoProceed': true, 'doRecording': true,
+                'baseDir': 'https://raw.githubusercontent.com/aconinenakano/selective-help/main', 'videoTypes': ['mp4']
+            },
+            'exit-survey': {
+                'kind': 'exp-lookit-exit-survey',
+                'debriefing': {
+                    'title': 'Thank you for participating!',
+                    'blocks': [
+                        {
+                            'title': '',
+                            'text': '</b><br>This research wouldn\'t be possible without awesome families like yours!</b>'
+                        },
+                        {
+                            'title': 'Some Background Information:',
+                            'text': 'Past developmental psychology work has shown children often think help recipients are less competent than people who do not recieve help. But, we know less about how they incorporate information about a helper when making judgments of recipients. Specifically, do children think that a student who recieves help from a teacher who helps selectively (Selective Help teacher), when help is actually needed, needs "more help" than a student helped by a teacher who helps everyone (Indiscriminate Help teacher), regardless of their perforamnce. \n\nIn this study, your child watched teachers in two classrooms help students with building block pyramids. In one classroom, the teacher helped some students and not others, depending on their performance. In the other, the teacher helped everyone regardless of performance. Then, your child was shown a new student in each classroom, and asked which student they think really needs help.\n\n If children are tracking the frequency of the teachers\' help and whether their help was calibrated to the needs of the student, then we expect them to choose the student helped by the Selective Helper as "really needing help" because they may realize this teacher\'s help could be more informative about performance. But, there are many reasons a child might give a specific answer (e.g., first or last option, favorite color), which is why we average over a lot of children of this age. \n\n This research will shed light on whether children generally think that help signals that a recipient is less skilled at a task or if they consider properties of a helper when making these inferences. '
+                        },
+                        {
+                            'title': 'Additional Resources:',
+                            'text': 'To learn more about this topic, you can check out some of the following research papers:<br><a href=\'https://direct.mit.edu/opmi/article/doi/10.1162/opmi_a_00129/120682\' target=\'_blank\'>Toddlers Prefer Agents Who Help Those Facing Harder Tasks</a><br><a href=\'https://pmc.ncbi.nlm.nih.gov/articles/PMC7244365/\' target=\'_blank\'>When Helping Hurts: Children Think Groups That Receive Help Are Less Smart</a>'
+                        },
+                        {
+                            'title': 'Compensation:',
+                            'text': 'To thank you for your participation, we\'ll be emailing you a $5 USD Amazon gift card - this should arrive in your inbox within the next week after we confirm your consent video and check that your child is in the age range for this study (If you don\'t hear from us by then, feel free to reach out!). If you participate again with another child in the age range, you\'ll receive one gift card per child.'
+                        },
+                        {
+                            'title': 'Questions or Concerns:',
+                            'text': 'Please do not hesitate to contact Aneesa Conine-Nakano at aneesacn@stanford.edu.'
+                        }
+                    ]
+                }
+            },
+            'stop-recording': {
+                'kind': 'exp-lookit-stop-recording',
+                'imageAnimation': 'spin',
+                'displayFullscreen': true
+            }
+        },
+
+        'sequence': [
+            'welcome',
+            'video-config',
+            'video-consent',
+            'email-survey',
+            'positioning',
+            'start-recording',
+            'welcome-block',
+            'intro-block',
+            'screener-choice',
+            'screener-feedback',
+            'screener-choice-retry',
+            'main-block',
+            'dv-choice',
+            'exit-block',
+            'exit-survey',
+            'stop-recording'
+        ]
+    };
+}
