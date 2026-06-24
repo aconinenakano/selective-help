@@ -1,5 +1,7 @@
 function generateProtocol(child, pastSessions) {
 
+    var screenerCB = Math.floor(Math.random() * 2); // 0 = CB1, 1 = CB2
+
     return {
         frames: {
             'welcome': {
@@ -23,7 +25,7 @@ function generateProtocol(child, pastSessions) {
                 'datause': 'The researchers and study staff follow federal and state laws to protect your privacy, so all of your information and research records will be kept confidential. The only exception to these procedures for maintaining confidentiality is that we are required by law to report to the appropriate authorities suspicion of harm to your child or to others. More information on how we keep your videos and data private can be found at lookit.mit.edu/faq.',
                 'research_rights_statement': 'The Institutional Review Board (IRB) of Stanford University has approved this research study. If you have questions regarding your rights as a research subject you may contact the IRB office at 650-723-2480, or by mail at Research Compliance Office, Stanford University, 1705 El Camino Real, Palo Alto, CA 94306.'
             },
-      
+
             'email-survey': {
                 'kind': 'exp-lookit-survey',
                 'formSchema': {
@@ -41,7 +43,7 @@ function generateProtocol(child, pastSessions) {
                 },
                 'nextButtonText': 'Continue'
             },
-            
+
             'positioning': {
                 'kind': 'exp-video-config-quality',
                 'title': 'Positioning',
@@ -80,52 +82,42 @@ function generateProtocol(child, pastSessions) {
                 'backgroundColor': 'black', 'autoProceed': true, 'doRecording': true,
                 'baseDir': 'https://raw.githubusercontent.com/aconinenakano/selective-help/main', 'videoTypes': ['mp4']
             },
-   
+
             'intro-block': {
-              'sampler': 'random-parameter-set',
-              'kind': 'choice',
-              'frameList': [
-                {
-                  'kind': 'exp-lookit-video',
-                  'generateProperties': 'function(expData, sequence, child, pastSessions, conditions) { var cb = conditions["intro-block"] || 0; window._screenerCB = cb; var source = cb === 0 ? "SH_study2_intro_cb1" : "SH_study2_intro_cb2"; return { video: { "top": 0, "left": 0, "width": 100, "source": source, "loop": false } }; }',
-                  'backgroundColor': 'black', 'autoProceed': true, 'doRecording': true,
-                  'baseDir': 'https://raw.githubusercontent.com/aconinenakano/selective-help/main', 'videoTypes': ['mp4']
-                }
-           ],
-           'parameterSets': [
-             { 'INTRO_VIDEO': 'SH_study2_intro_cb1' },
-             { 'INTRO_VIDEO': 'SH_study2_intro_cb2' }
-             ]
+                'kind': 'exp-lookit-video',
+                'video': { 'top': 0, 'left': 0, 'width': 100, 'source': screenerCB === 0 ? 'SH_study2_intro_cb1' : 'SH_study2_intro_cb2', 'loop': false },
+                'backgroundColor': 'black', 'autoProceed': true, 'doRecording': true,
+                'baseDir': 'https://raw.githubusercontent.com/aconinenakano/selective-help/main', 'videoTypes': ['mp4']
             },
-            
+
             'screener-choice': {
-              'kind': 'exp-lookit-images-audio',
-              'generateProperties': 'function(expData, sequence, child, pastSessions, conditions) { var cb = window._screenerCB || 0; var image = cb === 0 ? "SH2_screenerchoice_cb1.png" : "SH2_screenerchoice_cb2.png"; return { images: [ {"id": "background", "src": image, "left": 0, "width": 100, "top": 0, "height": 100, "nonChoiceOption": true}, {"id": "left-choice", "src": "answer_rect_blank.png", "left": 10, "width": 35, "top": 25, "height": 50, "feedbackAudio": "this_one", "nonChoiceOption": false}, {"id": "right-choice", "src": "answer_rect_blank.png", "left": 55, "width": 40, "top": 25, "height": 50, "feedbackAudio": "this_one", "nonChoiceOption": false} ] }; }',
-              'audio': 'screener_question',
-              'baseDir': 'https://raw.githubusercontent.com/aconinenakano/selective-help/main',
-              'audioTypes': ['mp3'],
-              'autoProceed': false, 'choiceRequired': true, 'doRecording': true
-              
+                'kind': 'exp-lookit-images-audio',
+                'images': [
+                    {'id': 'background', 'src': screenerCB === 0 ? 'SH2_screenerchoice_cb1.png' : 'SH2_screenerchoice_cb2.png', 'left': 0, 'width': 100, 'top': 0, 'height': 100, 'nonChoiceOption': true},
+                    {'id': 'left-choice', 'src': 'answer_rect_blank.png', 'left': 10, 'width': 35, 'top': 25, 'height': 50, 'feedbackAudio': 'this_one', 'nonChoiceOption': false},
+                    {'id': 'right-choice', 'src': 'answer_rect_blank.png', 'left': 55, 'width': 40, 'top': 25, 'height': 50, 'feedbackAudio': 'this_one', 'nonChoiceOption': false}
+                ],
+                'audio': 'screener_question', 'baseDir': 'https://raw.githubusercontent.com/aconinenakano/selective-help/main', 'audioTypes': ['mp3'],
+                'autoProceed': false, 'choiceRequired': true, 'doRecording': true
             },
-            
+
             'screener-feedback': {
-              'kind': 'exp-lookit-video',
-              'backgroundColor': 'black', 'autoProceed': true, 'doRecording': true,
-              'baseDir': 'https://raw.githubusercontent.com/aconinenakano/selective-help/main', 'videoTypes': ['mp4'],
-              'generateProperties': 'function(expData, sequence, child, pastSessions, conditions) { var selectedImage = null; for (var key in expData) { if (key.indexOf("screener-choice") !== -1 && key.indexOf("retry") === -1 && expData[key].selectedImage) { selectedImage = expData[key].selectedImage; } } var cb = window._screenerCB || 0; var isCorrect = (cb === 0) ? selectedImage === "left-choice" : selectedImage === "right-choice"; window._screenerCorrect = isCorrect; var cbSuffix = cb === 0 ? "_cb1" : "_cb2"; var videoSource = isCorrect ? "screener_correct" + cbSuffix : "screener_incorrect" + cbSuffix; return { video: { "top": 0, "left": 0, "width": 100, "source": videoSource, "loop": false } }; }',
-              'selectNextFrame': 'function(frames, frameIndex, expData) { var isCorrect = window._screenerCorrect || false; return isCorrect ? frameIndex + 2 : frameIndex + 1; }'
-              
+                'kind': 'exp-lookit-video',
+                'backgroundColor': 'black', 'autoProceed': true, 'doRecording': true,
+                'baseDir': 'https://raw.githubusercontent.com/aconinenakano/selective-help/main', 'videoTypes': ['mp4'],
+                'generateProperties': 'function(expData, sequence, child, pastSessions, conditions) { var selectedImage = null; for (var key in expData) { if (key.indexOf("screener-choice") !== -1 && key.indexOf("retry") === -1 && expData[key].selectedImage) { selectedImage = expData[key].selectedImage; } } var cb = ' + screenerCB + '; var isCorrect = (cb === 0) ? selectedImage === "left-choice" : selectedImage === "right-choice"; window._screenerCorrect = isCorrect; var cbSuffix = cb === 0 ? "_cb1" : "_cb2"; var videoSource = isCorrect ? "screener_correct" + cbSuffix : "screener_incorrect" + cbSuffix; return { video: { "top": 0, "left": 0, "width": 100, "source": videoSource, "loop": false } }; }',
+                'selectNextFrame': 'function(frames, frameIndex, expData) { var isCorrect = window._screenerCorrect || false; return isCorrect ? frameIndex + 2 : frameIndex + 1; }'
             },
-            
-            
+
             'screener-choice-retry': {
-              'kind': 'exp-lookit-images-audio',
-              'generateProperties': 'function(expData, sequence, child, pastSessions, conditions) { var cb = window._screenerCB || 0; var image = cb === 0 ? "SH2_screenerchoice_cb1.png" : "SH2_screenerchoice_cb2.png"; return { images: [ {"id": "background", "src": image, "left": 0, "width": 100, "top": 0, "height": 100, "nonChoiceOption": true}, {"id": "left-choice", "src": "answer_rect_blank.png", "left": 10, "width": 35, "top": 25, "height": 50, "feedbackAudio": "this_one", "nonChoiceOption": false}, {"id": "right-choice", "src": "answer_rect_blank.png", "left": 55, "width": 40, "top": 25, "height": 50, "feedbackAudio": "this_one", "nonChoiceOption": false} ] }; }',
-              'audio': 'screener_question',
-              'baseDir': 'https://raw.githubusercontent.com/aconinenakano/selective-help/main',
-              'audioTypes': ['mp3'],
-              'autoProceed': false, 'choiceRequired': true, 'doRecording': true
-              
+                'kind': 'exp-lookit-images-audio',
+                'images': [
+                    {'id': 'background', 'src': screenerCB === 0 ? 'SH2_screenerchoice_cb1.png' : 'SH2_screenerchoice_cb2.png', 'left': 0, 'width': 100, 'top': 0, 'height': 100, 'nonChoiceOption': true},
+                    {'id': 'left-choice', 'src': 'answer_rect_blank.png', 'left': 10, 'width': 35, 'top': 25, 'height': 50, 'feedbackAudio': 'this_one', 'nonChoiceOption': false},
+                    {'id': 'right-choice', 'src': 'answer_rect_blank.png', 'left': 55, 'width': 40, 'top': 25, 'height': 50, 'feedbackAudio': 'this_one', 'nonChoiceOption': false}
+                ],
+                'audio': 'screener_question', 'baseDir': 'https://raw.githubusercontent.com/aconinenakano/selective-help/main', 'audioTypes': ['mp3'],
+                'autoProceed': false, 'choiceRequired': true, 'doRecording': true
             },
 
             'main-block': {
@@ -139,6 +131,7 @@ function generateProtocol(child, pastSessions) {
                     { 'STUDY_VIDEO': 'SH_study2_cb2', 'DV_VIDEO': 'SH_study2_dv_cb2' }
                 ]
             },
+
             'dv-choice': {
                 'kind': 'exp-lookit-images-audio',
                 'images': [{'id': 'background', 'src': 'SH2_dvchoice.png', 'left': 0, 'width': 100, 'top': 0, 'height': 100, 'nonChoiceOption': true}, {'id': 'left-choice-zoe', 'src': 'answer_rect_blank.png', 'left': 10, 'width': 35, 'top': 25, 'height': 50, 'feedbackAudio': 'zoe'}, {'id': 'right-choice-mia', 'src': 'answer_rect_blank.png', 'left': 55, 'width': 35, 'top': 25, 'height': 50, 'feedbackAudio': 'mia'}],
@@ -148,12 +141,14 @@ function generateProtocol(child, pastSessions) {
                     {'range': [5.02, 5.44], 'imageId': 'right-choice-mia'}
                 ]
             },
+
             'exit-block': {
                 'kind': 'exp-lookit-video',
                 'video': { 'top': 0, 'left': 0, 'width': 100, 'source': 'ending', 'loop': false },
                 'backgroundColor': 'black', 'autoProceed': true, 'doRecording': true,
                 'baseDir': 'https://raw.githubusercontent.com/aconinenakano/selective-help/main', 'videoTypes': ['mp4']
             },
+
             'exit-survey': {
                 'kind': 'exp-lookit-exit-survey',
                 'debriefing': {
@@ -182,6 +177,7 @@ function generateProtocol(child, pastSessions) {
                     ]
                 }
             },
+
             'stop-recording': {
                 'kind': 'exp-lookit-stop-recording',
                 'imageAnimation': 'spin',
