@@ -23,6 +23,25 @@ function generateProtocol(child, pastSessions) {
                 'datause': 'The researchers and study staff follow federal and state laws to protect your privacy, so all of your information and research records will be kept confidential. The only exception to these procedures for maintaining confidentiality is that we are required by law to report to the appropriate authorities suspicion of harm to your child or to others. More information on how we keep your videos and data private can be found at lookit.mit.edu/faq.',
                 'research_rights_statement': 'The Institutional Review Board (IRB) of Stanford University has approved this research study. If you have questions regarding your rights as a research subject you may contact the IRB office at 650-723-2480, or by mail at Research Compliance Office, Stanford University, 1705 El Camino Real, Palo Alto, CA 94306.'
             },
+      
+            'email-survey': {
+                'kind': 'exp-lookit-survey',
+                'formSchema': {
+                    'schema': {
+                        'type': 'object',
+                        'title': 'Please enter your email address below. This will be used for sending you the $5 gift card.',
+                        'properties': {
+                            'Email': {
+                                'type': 'string',
+                                'title': 'Email',
+                                'required': true
+                            }
+                        }
+                    }
+                },
+                'nextButtonText': 'Continue'
+            },
+            
             'positioning': {
                 'kind': 'exp-video-config-quality',
                 'title': 'Positioning',
@@ -122,23 +141,6 @@ function generateProtocol(child, pastSessions) {
                 'backgroundColor': 'black', 'autoProceed': true, 'doRecording': true,
                 'baseDir': 'https://raw.githubusercontent.com/aconinenakano/selective-help/main', 'videoTypes': ['mp4']
             },
-            'email-survey': {
-                'kind': 'exp-lookit-survey',
-                'formSchema': {
-                    'schema': {
-                        'type': 'object',
-                        'title': 'Please enter your email address below. This will be used for sending you the $5 gift card.',
-                        'properties': {
-                            'Email': {
-                                'type': 'string',
-                                'title': 'Email',
-                                'required': true
-                            }
-                        }
-                    }
-                },
-                'nextButtonText': 'Continue'
-            },
             'exit-survey': {
                 'kind': 'exp-lookit-exit-survey',
                 'debriefing': {
@@ -150,7 +152,7 @@ function generateProtocol(child, pastSessions) {
                         },
                         {
                             'title': 'Some Background Information:',
-                            'text': 'Children often receive help from the people around them, but we know less about what they learn from these helping behaviors. How do young children use helping interactions to understand others and the tasks they face?\n\nIn this study, your child watched teachers in two classrooms help students with block pyramid building. In one classroom, the teacher helped some students and not others. In the other, the teacher helped everyone. Your child was then asked which student they think really needs help.\n\nThis research will shed light on how children can learn about what tasks to attempt and evaluate others\' abilities through observing helping interactions.'
+                            'text': 'Past developmental psychology work has shown children often think help recipients are less competent than people who do not recieve help. But, we know less about how they incorporate information about a helper when making judgments of recipients. Specifically, do children think that a student who recieves help from a teacher who helps selectively (Selective Help teacher), when help is actually needed, needs "more help" than a student helped by a teacher who helps everyone (Indiscriminate Help teacher), regardless of their perforamnce. \n\nIn this study, your child watched teachers in two classrooms help students with building block pyramids. In one classroom, the teacher helped some students and not others, depending on their performance. In the other, the teacher helped everyone regardless of performance. Then, your child was shown a new student in each classroom, and asked which student they think really needs help.\n\n If children are tracking the frequency of the teachers\' help and whether their help was calibrated to the needs of the student, then we expect them to choose the student helped by the Selective Helper as "really needing help" because they may realize this teacher\'s help could be more informative about performance. But, there are many reasons a child might give a specific answer (e.g., first or last option, favorite color), which is why we average over a lot of children of this age. \n\n This research will shed light on whether children generally think that help signals that a recipient is less skilled at a task or if they consider properties of a helper when making these inferences. '
                         },
                         {
                             'title': 'Additional Resources:',
@@ -178,6 +180,7 @@ function generateProtocol(child, pastSessions) {
             'welcome',
             'video-config',
             'video-consent',
+            'email-survey',
             'positioning',
             'start-recording',
             'welcome-block',
@@ -188,7 +191,6 @@ function generateProtocol(child, pastSessions) {
             'main-block',
             'dv-choice',
             'exit-block',
-            'email-survey',
             'exit-survey',
             'stop-recording'
         ]
